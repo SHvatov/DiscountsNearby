@@ -3,6 +3,8 @@ package com.discounts.nearby.repository
 import com.discounts.nearby.model.Good
 import com.discounts.nearby.model.Goods
 import com.discounts.nearby.model.Supermarket
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
@@ -11,8 +13,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.test.context.junit.jupiter.SpringExtension
 import java.math.BigDecimal
-import kotlin.test.assertEquals
-import kotlin.test.assertNotNull
 
 
 /**
