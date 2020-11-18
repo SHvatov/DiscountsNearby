@@ -29,6 +29,7 @@ class UserRepositoryTest {
     @Test
     fun `find entity by id`() {
         val toPersist = User().apply {
+            id = "1234"
             name = "name"
             email = "test@mail.com"
             preferences = UserPreferences(

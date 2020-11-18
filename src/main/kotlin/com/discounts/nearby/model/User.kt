@@ -3,7 +3,6 @@ package com.discounts.nearby.model
 import com.discounts.nearby.utils.JpaJsonConverter
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.hibernate.annotations.GenericGenerator
 import java.io.Serializable
 import java.math.BigDecimal
 import javax.persistence.*
@@ -21,8 +20,6 @@ private const val TABLE_NAME = "user"
 @Table(name = TABLE_NAME)
 class User : AbstractEntity<String>() {
     @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
     override var id: String? = null
 
     @get:Column
