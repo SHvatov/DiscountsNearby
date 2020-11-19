@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/header :: header-css"/>
+    <link rel="stylesheet" href="../css/homePage.css" crossorigin="anonymous">
+</head>
+<body>
+
+<div th:replace="fragments/header :: header"/>
+
+<div class="container-fluid">
+    <div class="row justify-content-center ">
+        <div class="col-5 top-margin-col">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Ваше местоположение" aria-describedby="button-addon">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button" id="button-addon">Поиск</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
