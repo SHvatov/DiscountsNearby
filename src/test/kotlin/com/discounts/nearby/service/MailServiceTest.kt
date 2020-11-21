@@ -1,52 +1,48 @@
 package com.discounts.nearby.service
 
-import com.discounts.nearby.service.util.MailServiceTestConfig
-import com.discounts.nearby.service.util.SmtpServerRule
-import junit.framework.Assert.assertEquals
-import junit.framework.Assert.assertTrue
-import org.junit.Rule
-import org.junit.Test
-import org.junit.runner.RunWith
+import com.discounts.nearby.config.MailServiceTestConfig
+import com.discounts.nearby.config.extension.SmtpMailServerExtension
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.TestPropertySource
-import org.springframework.test.context.junit4.SpringRunner
+import org.springframework.test.context.junit.jupiter.SpringExtension
 
 
 /**
  * @author Created by Vladislav Marchenko on 20.11.2020
  */
-@RunWith(SpringRunner::class)
+@ExtendWith(value = [SpringExtension::class, SmtpMailServerExtension::class])
 @SpringBootTest(classes = [MailServiceTestConfig::class])
 @EnableConfigurationProperties
 @TestPropertySource(locations = ["classpath:application-test.properties"])
 @ActiveProfiles("test")
 class MailServiceTest {
-
     @Autowired
-    lateinit var mailService: MailService
-
-    @get:Rule
-    var smtpServerRule = SmtpServerRule()
-
-    val emailTo = "example@mail.ru"
-
-    val subject = "subject"
-
-    val content = "content"
+    private lateinit var mailService: MailService
 
     @Test
-    fun sendMail() {
+    fun sendMail(mailServer: SmtpMailServerExtension.SmtpMailServer) {
         mailService.sendMail(emailTo, subject, content)
 
-        val receivedMessages = smtpServerRule.messages
+        val receivedMessages = mailServer.receivedMessages()
         assertEquals(1, receivedMessages.size)
-        val current = receivedMessages[0]
 
+        val current = receivedMessages[0]
         assertEquals(subject, current.subject)
         assertEquals(emailTo, current.allRecipients[0].toString())
-        assertTrue(current.content.toString().contains(content))
+        assertEquals(current.content.toString().trim(), content)
+    }
+
+    companion object {
+        private const val emailTo = "example@mail.ru"
+
+        private const val subject = "subject"
+
+        private const val content = "content"
     }
 }
