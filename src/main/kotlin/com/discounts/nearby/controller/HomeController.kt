@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping
  */
 @Controller
 class HomeController {
-
     @GetMapping("/")
     fun homePage() : String = "/homePage"
 }
