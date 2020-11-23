@@ -6,10 +6,7 @@ package com.discounts.nearby.service
  */
 interface MailService {
     /**
-     * Method for sending emails
-     * @param emailTo recipient's email address
-     * @param subject subject of email
-     * @param message text of email
+     * Sends the email with the following [subject] and [message] to the receiver with [emailTo]
      */
     fun sendMail(emailTo : String, subject : String, message : String)
 }

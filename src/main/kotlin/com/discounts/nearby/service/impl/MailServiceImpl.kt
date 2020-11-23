@@ -8,8 +8,7 @@ import org.springframework.stereotype.Service
 
 
 /**
- * Implementation of
- * @see com.discounts.nearby.service.MailService
+ * Implementation of [com.discounts.nearby.service.MailService]
  * @author Created by Vladislav Marchenko on 20.11.2020
  */
 @Service("mailService")
@@ -23,13 +22,6 @@ class MailServiceImpl constructor(
     @Value("\${spring.mail.username}")
     private val username: String? = null
 
-    /**
-     * Implementation of
-     * @see com.discounts.nearby.service.MailService.sendMail
-     * @param emailTo recipient's email address
-     * @param subject subject of email
-     * @param message text of email
-     */
     override fun sendMail(emailTo: String, subject: String, message: String) {
         val mailMessage = SimpleMailMessage()
 

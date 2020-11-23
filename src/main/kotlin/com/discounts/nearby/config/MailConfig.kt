@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.mail.javamail.JavaMailSender
 import org.springframework.mail.javamail.JavaMailSenderImpl
+import org.springframework.scheduling.annotation.EnableScheduling
 
 
 /**
@@ -12,6 +13,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl
  * @author Created by Vladislav Marchenko on 19.11.2020
  */
 @Configuration
+@EnableScheduling
 class MailConfig {
     /**
      * Host used by third party email service
@@ -44,14 +46,12 @@ class MailConfig {
     private val protocol: String? = null
 
     @Bean
-    fun mailSender(): JavaMailSender? {
-        val mailSender = JavaMailSenderImpl()
-        mailSender.host = host
-        mailSender.port = port
-        mailSender.username = username
-        mailSender.password = password
-        val properties = mailSender.javaMailProperties
-        properties.setProperty("mail.transport.protocol", protocol)
-        return mailSender
+    fun mailSender(): JavaMailSender = JavaMailSenderImpl().apply {
+        host = host
+        port = port
+        username = username
+        password = password
+        javaMailProperties["mail.transport.protocol"] = protocol
     }
+
 }
