@@ -4,6 +4,8 @@
     <div th:replace="fragments/header :: header-css"/>
     <title>Discounts Nearby</title>
     <link rel="stylesheet" href="../css/homePage.css" crossorigin="anonymous">
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=9c31ef42-bb24-4bc5-9d10-5a4ec79d2433"
+            type="text/javascript"></script>
 </head>
 <body>
 
@@ -13,13 +15,18 @@
     <div class="row justify-content-center ">
         <div class="col-5 top-margin-col">
             <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Ваше местоположение" aria-describedby="button-addon">
+                <input type="text" class="form-control" placeholder="Ваше местоположение"
+                       aria-describedby="button-addon">
                 <div class="input-group-append">
                     <button class="btn btn-outline-secondary" type="button" id="button-addon">Поиск</button>
                 </div>
             </div>
         </div>
     </div>
+    <div class="row justify-content-center" id="map" style="position:absolute;width:100%;height:100%;">
+        <script src="../js/map.js" th:inline="javascript"></script>
+    </div>
 </div>
+
 </body>
 </html>

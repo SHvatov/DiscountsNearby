@@ -47,11 +47,11 @@ class MailConfig {
 
     @Bean
     fun mailSender(): JavaMailSender = JavaMailSenderImpl().apply {
-        host = host
-        port = port
-        username = username
-        password = password
-        javaMailProperties["mail.transport.protocol"] = protocol
+        this.host = host
+        this.port = port
+        this.username = username
+        this.password = password
+        this.protocol = protocol
     }
 
 }
