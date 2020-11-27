@@ -11,14 +11,14 @@
 
 <div th:replace="fragments/header :: header"/>
 
-<div class="container-fluid">
+<div class="container-fluid" id="home-page-container">
     <div class="row justify-content-center ">
         <div class="col-5 top-margin-col">
             <div class="input-group mb-3">
                 <input class="form-control" id="location-input" placeholder="Ваше местоположение" type="text"
                        aria-describedby="button-addon">
                 <div class="input-group-append">
-                    <button class="btn btn-outline-secondary" type="button" id="button-addon">Поиск</button>
+                    <button class="btn btn-outline-secondary" id="location-btn" type="button">Поиск</button>
                 </div>
             </div>
         </div>
@@ -26,6 +26,7 @@
     <div class="row justify-content-center" id="map" style="position:absolute;width:100%;height:100%;">
         <script src="../js/map.js" th:inline="javascript"></script>
     </div>
+    <div class="alert-review" id="alert-placeholder"></div>
 </div>
 
 </body>
