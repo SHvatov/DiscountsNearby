@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service
 /**
  * @author shvatov
  */
-@Service("supermarketService")
+@Service("userService")
 class UserServiceImpl @Autowired constructor(
     repository: UserRepository
 ) : AbstractCrudService<UserRepository, User, String>(repository), UserService
