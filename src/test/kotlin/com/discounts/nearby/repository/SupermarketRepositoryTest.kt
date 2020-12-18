@@ -34,7 +34,7 @@ class SupermarketRepositoryTest {
             name = "name"
             code = SupermarketCode.OKEY
             pathToSite = null
-            goods = Goods(
+            goodsSortedByPrice = Goods(
                 goods = listOf(
                     Good(
                         name = "good",
@@ -45,7 +45,11 @@ class SupermarketRepositoryTest {
                     )
                 )
             )
+            goodsSortedByDiscount = Goods(
+                goods = emptyList()
+            )
         }
+
         val persisted = entityManager
             .persist(toPersist)
             .also { entityManager.flush() }

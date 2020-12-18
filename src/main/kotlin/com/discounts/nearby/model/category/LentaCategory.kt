@@ -6,4 +6,6 @@ package com.discounts.nearby.model.category
 enum class LentaCategory(
     override val goodCategory: GoodCategory,
     override val localizedCategory: String
-) : SupermarketCategory
+) : SupermarketCategory {
+    BEER(GoodCategory.BEER, "alkogolnye-napitki")
+}
