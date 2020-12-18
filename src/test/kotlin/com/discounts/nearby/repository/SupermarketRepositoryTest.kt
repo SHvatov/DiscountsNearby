@@ -3,6 +3,7 @@ package com.discounts.nearby.repository
 import com.discounts.nearby.model.Good
 import com.discounts.nearby.model.Goods
 import com.discounts.nearby.model.Supermarket
+import com.discounts.nearby.model.SupermarketCode
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Test
@@ -31,14 +32,14 @@ class SupermarketRepositoryTest {
     fun `find entity by id`() {
         val toPersist = Supermarket().apply {
             name = "name"
-            code = "code"
+            code = SupermarketCode.OKEY
             pathToSite = null
             goods = Goods(
                 goods = listOf(
                     Good(
                         name = "good",
                         pathToPicture = "path/to/picture",
-                        weight = BigDecimal.ONE,
+                        weight = "1 kg.",
                         discount = BigDecimal.ZERO,
                         price = BigDecimal.TEN
                     )

@@ -1,5 +1,6 @@
 package com.discounts.nearby.model
 
+import com.discounts.nearby.model.category.GoodCategory
 import com.discounts.nearby.utils.JpaJsonConverter
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty

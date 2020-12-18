@@ -1,5 +1,6 @@
 package com.discounts.nearby.model
 
+import com.discounts.nearby.model.category.GoodCategory
 import com.discounts.nearby.utils.JpaJsonConverter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
@@ -28,7 +29,8 @@ class Supermarket : AbstractEntity<Long>() {
     var name: String? = null
 
     @get:Column
-    var code: String? = null
+    @get:Enumerated(EnumType.STRING)
+    var code: SupermarketCode? = null
 
     @get:Column(columnDefinition = "JSON")
     @get:Convert(converter = GoodsJpaConverter::class)
@@ -64,7 +66,7 @@ data class Good @JsonCreator constructor(
     var goodCategory: GoodCategory? = null,
 
     @param:JsonProperty(value = "weight")
-    var weight: BigDecimal? = null,
+    var weight: String? = null,
 
     @param:JsonProperty(value = "discount")
     var discount: BigDecimal? = null,
@@ -72,11 +74,6 @@ data class Good @JsonCreator constructor(
     @param:JsonProperty(value = "price")
     var price: BigDecimal? = null
 ) : Serializable
-
-/**
- * @author shvatov
- */
-enum class GoodCategory
 
 /**
  * Converts [Goods] into JSON and back.
