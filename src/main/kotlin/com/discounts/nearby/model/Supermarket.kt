@@ -34,7 +34,11 @@ class Supermarket : AbstractEntity<Long>() {
 
     @get:Column(columnDefinition = "JSON")
     @get:Convert(converter = GoodsJpaConverter::class)
-    var goods: Goods? = null
+    var goodsSortedByPrice: Goods? = null
+
+    @get:Column(columnDefinition = "JSON")
+    @get:Convert(converter = GoodsJpaConverter::class)
+    var goodsSortedByDiscount: Goods? = null
 
     @get:Column
     var pathToSite: String? = null
