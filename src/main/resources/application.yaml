@@ -16,8 +16,8 @@ spring:
             client-secret: google-client-secret
   mail:
     host: smtp.yandex.ru
-    username: discounts-nearby.info@yandex.ru
-    password: aA12345!
+    username: ${mailUser}
+    password: ${mailPassword}
     port: 465
     protocol: smtps
 server:
