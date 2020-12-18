@@ -10,7 +10,7 @@ import java.io.Serializable
  * @author shvatov
  */
 abstract class AbstractCrudService<R, E, ID> constructor(
-    private val repository: R
+    protected val repository: R
 ) : CrudService<E, ID> where R : JpaRepository<E, ID>,
                              E : AbstractEntity<ID>,
                              ID : Serializable {

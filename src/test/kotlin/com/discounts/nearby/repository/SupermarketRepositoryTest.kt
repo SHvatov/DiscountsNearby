@@ -33,7 +33,6 @@ class SupermarketRepositoryTest {
         val toPersist = Supermarket().apply {
             name = "name"
             code = SupermarketCode.OKEY
-            pathToSite = null
             goodsSortedByPrice = Goods(
                 goods = listOf(
                     Good(

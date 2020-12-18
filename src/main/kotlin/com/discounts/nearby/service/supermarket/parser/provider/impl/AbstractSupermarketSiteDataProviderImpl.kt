@@ -66,9 +66,12 @@ abstract class AbstractSupermarketSiteDataProviderImpl constructor(
             uniqueElements.add(elements.first())
         }
 
-        uniqueElements.sortBy { if (discountOnly) it.discount else it.price }
         return Goods(
-            goods = uniqueElements.take(elementsToFetch)
+            goods = if (discountOnly) {
+                uniqueElements.sortedByDescending { it.discount }
+            } else {
+                uniqueElements.sortedBy { it.price }
+            }.take(elementsToFetch)
         )
     }
 

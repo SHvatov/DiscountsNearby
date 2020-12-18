@@ -13,7 +13,7 @@ import java.math.BigDecimal
 /**
  * @author shvatov
  */
-@Service("okeySiteDataParser")
+@Service("lentaSiteDataParser")
 class LentaSiteDataProvider @Autowired constructor(
     goodCategoryManager: SupermarketCategoryManager
 ) : AbstractSupermarketSiteDataProviderImpl(goodCategoryManager), SupermarketSiteDataProvider {
