@@ -4,6 +4,7 @@ import com.discounts.nearby.model.SupermarketCode
 import com.discounts.nearby.model.category.GoodCategory
 import com.discounts.nearby.service.supermarket.parser.manager.SupermarketSiteDataManager
 import com.discounts.nearby.service.supermarket.parser.provider.SupermarketSiteDataProvider
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 /**
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service
 class SupermarketSiteDataManagerImpl : SupermarketSiteDataManager {
     private lateinit var dataProviders: Map<SupermarketCode, SupermarketSiteDataProvider>
 
+    @Autowired
     override fun setProviders(providers: List<SupermarketSiteDataProvider>) {
         dataProviders = providers.associateBy { it.supermarketCode }
     }
