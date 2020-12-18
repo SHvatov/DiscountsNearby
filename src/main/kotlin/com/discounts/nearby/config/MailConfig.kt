@@ -19,39 +19,39 @@ class MailConfig {
      * Host used by third party email service
      */
     @Value("\${spring.mail.host}")
-    private val host: String? = null
+    private val mailHost: String? = null
 
     /**
      * Username of account from which the mailing will be carried out
      */
     @Value("\${spring.mail.username}")
-    private val username: String? = null
+    private val mailUsername: String? = null
 
     /**
      * Password from account from which the mailing will be carried out
      */
     @Value("\${spring.mail.password}")
-    private val password: String? = null
+    private val mailPassword: String? = null
 
     /**
      * Port used by third party email service
      */
     @Value("\${spring.mail.port}")
-    private val port = 0
+    private val mailPort = 0
 
     /**
      * Protocol used by third party email service
      */
     @Value("\${spring.mail.protocol}")
-    private val protocol: String? = null
+    private val mailProtocol: String? = null
 
     @Bean
     fun mailSender(): JavaMailSender = JavaMailSenderImpl().apply {
-        this.host = host
-        this.port = port
-        this.username = username
-        this.password = password
-        this.protocol = protocol
+        host = mailHost
+        port = mailPort
+        username = mailUsername
+        password = mailPassword
+        javaMailProperties["mail.transport.protocol"] = mailProtocol
     }
 
 }

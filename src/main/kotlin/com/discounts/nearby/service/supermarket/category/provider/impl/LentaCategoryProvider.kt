@@ -12,5 +12,5 @@ import org.springframework.stereotype.Component
 class LentaCategoryProvider :
     AbstractSupermarketCategoryProvider<LentaCategory>(),
     SupermarketCategoryProvider {
-    override val supermarketCode = SupermarketCode.OKEY
+    override val supermarketCode = SupermarketCode.LENTA
 }

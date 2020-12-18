@@ -22,4 +22,3 @@ spring:
     protocol: smtps
 server:
   port: 3030
-
