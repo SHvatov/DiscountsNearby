@@ -73,6 +73,11 @@
             <groupId>org.thymeleaf.extras</groupId>
             <artifactId>thymeleaf-extras-springsecurity5</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.13.1</version>
+        </dependency>
 
         <dependency>
             <groupId>com.h2database</groupId>
@@ -100,7 +105,6 @@
             <version>1.6.1</version>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
 
     <build>
