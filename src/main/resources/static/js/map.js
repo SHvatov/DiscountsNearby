@@ -12,14 +12,6 @@ function init() {
         searchControlProvider: 'yandex#search'
     });
 
-    function getLentaInfo() {
-        alert("vjkvjfk");
-    }
-
-    function getOkeyInfo() {
-
-    }
-
     let mapHeight = $('#map').height();
     $('#shop-list').height(mapHeight);
     $('#shop-list-placeholder').hide();
@@ -119,7 +111,12 @@ function init() {
                         '                    </ul>\n' +
                         '                    <p></p>\n' +
                         '                    <button type="button" class="btn btn-info" onclick="getLentaInfo()">Выбрать</button>\n' +
-                        '                </li>'
+                        '                </li>\n' +
+                        '                <script th:inline="javascript">\n' +
+                        '                   function getLentaInfo() {\n' +
+                        '                       alert("Нажатие на кнопку Ленты");\n' +
+                        '                   }\n' +
+                        '                </script>\n'
                     );
                     $('#len1_' + i).text("Адрес: " + data.features[i].properties.CompanyMetaData.address);
                     if (data.features[i].properties.CompanyMetaData.Hours)
@@ -170,7 +167,12 @@ function init() {
                         '                    </ul>\n' +
                         '                    <p></p>\n' +
                         '                    <button type="button" class="btn btn-info" onclick="getOkeyInfo()">Выбрать</button>\n' +
-                        '                </li>'
+                        '                </li>\n' +
+                        '                <script th:inline="javascript">\n' +
+                        '                   function getOkeyInfo() {\n' +
+                        '                       alert("Нажатие на кнопку Окея");\n' +
+                        '                   }\n' +
+                        '                </script>\n'
                     );
                     $('#ok1_' + i).text("Адрес: " + data.features[i].properties.CompanyMetaData.address);
                     if (data.features[i].properties.CompanyMetaData.Hours)
