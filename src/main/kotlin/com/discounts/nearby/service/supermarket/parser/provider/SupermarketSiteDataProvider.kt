@@ -20,4 +20,9 @@ interface SupermarketSiteDataProvider : SupermarketDataProvider {
      * @see getAllCategoriesData
      */
     fun getDataByCategory(goodCategory: GoodCategory, elementsToFetch: Int, discountOnly: Boolean): Goods
+
+    /**
+     * Finds all the goods by the provided [goodName].
+     */
+    fun getDataByGoodName(goodName: String, elementsToFetch: Int): Goods
 }

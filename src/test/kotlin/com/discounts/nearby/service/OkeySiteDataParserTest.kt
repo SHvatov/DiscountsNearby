@@ -41,4 +41,10 @@ internal class OkeySiteDataParserTest {
         val goods = service.getDataByCategory(GoodCategory.BEER, 10, true)
         assertTrue { goods.goods?.size != 0 }
     }
+
+    @Test
+    fun `test parsing the website - find by key words`() {
+        val goods = service.getDataByGoodName("сок добрый", 72)
+        assertTrue { goods.goods?.size != 0 }
+    }
 }

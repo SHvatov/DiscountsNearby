@@ -25,11 +25,14 @@ class LentaSiteDataProvider @Autowired constructor(
 
     override val isPaginationSupported = true
 
-    override fun getConnectionUrl(localizedCategory: String,
-                                  sortedByDiscount: Boolean,
-                                  page: Int): String {
-        return "$CONNECTION_URL/$localizedCategory/${if (!sortedByDiscount) "?sorting=ByCardPriceAsc" else ""}"
-    }
+    override fun getConnectionUrlByCategory(localizedCategory: String,
+                                            sortedByDiscount: Boolean,
+                                            page: Int) =
+        "$CATALOG_URL/$localizedCategory/${if (!sortedByDiscount) "?sorting=ByCardPriceAsc" else ""}"
+
+    override fun getConnectionUrlByGoodName(goodName: String,
+                                            sortedByDiscount: Boolean,
+                                            page: Int) = "$SEARCH_URL${goodName.replace(" ", "%20")}"
 
     override fun parseProduct(goodCategory: GoodCategory, productElement: Element): Good {
         val pathToImage = productElement
@@ -67,7 +70,9 @@ class LentaSiteDataProvider @Autowired constructor(
     }
 
     private companion object {
-        const val CONNECTION_URL = "https://lenta.com/catalog"
+        const val CATALOG_URL = "https://lenta.com/catalog"
+
+        const val SEARCH_URL = "https://lenta.com/search/?searchText="
 
         const val PRODUCT_CLASS = "sku-card-small-container"
 

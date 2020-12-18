@@ -25,19 +25,29 @@ class OkeySiteDataProvider @Autowired constructor(
 
     override val isPaginationSupported = true
 
-    override fun getConnectionUrl(localizedCategory: String,
-                                  sortedByDiscount: Boolean,
-                                  page: Int): String {
+    override fun getConnectionUrlByCategory(localizedCategory: String,
+                                            sortedByDiscount: Boolean,
+                                            page: Int): String {
         val beginIndex = page * ELEMENTS_PER_PAGE
         return "$CONNECTION_URL/$localizedCategory" +
-            "#facet:&productBeginIndex:$beginIndex&orderBy:3&pageView:grid&minPrice:&maxPrice:&pageSize:&"
+            "#facet:&productBeginIndex:$beginIndex&pageSize=72&orderBy:&pageView:grid&minPrice:&maxPrice:&pageSize:72&"
+    }
+
+    override fun getConnectionUrlByGoodName(goodName: String,
+                                            sortedByDiscount: Boolean,
+                                            page: Int): String {
+        val beginIndex = page * ELEMENTS_PER_PAGE
+        return "$CONNECTION_URL/webapp/wcs/stores/servlet/SearchDisplay?categoryId=&storeId=10653&catalogId=12052" +
+            "&langId=-20&sType=SimpleSearch&resultCatEntryType=2&showResultsPage=true" +
+            "&searchSource=Q&pageView=&beginIndex=$beginIndex&pageSize=72&searchTerm=${goodName.replace(" ", "+")}" +
+            "#facet:&productBeginIndex:0&orderBy:3&pageView:&minPrice:&maxPrice:&pageSize:72&"
     }
 
     override fun parseProduct(goodCategory: GoodCategory, productElement: Element): Good {
         val name = productElement
             .select("div.product-name")
-            .select("a")[0]
-            .text()
+            .select("a")
+            .attr("title")
 
         val pathToImage = productElement
             .select("div.product-image")
@@ -53,7 +63,7 @@ class OkeySiteDataProvider @Autowired constructor(
         val oldPriceElem = priceElements.select("span.label.small.crossed")
         val regularPriceElem = priceElements.select("span.price.label")
         val (price, oldPrice) = if (discountedPriceElem.isEmpty() && oldPriceElem.isEmpty()) {
-            convertToCurrency(regularPriceElem.text()) to BigDecimal.ZERO
+            convertToCurrency(regularPriceElem[0].text()) to BigDecimal.ZERO
         } else {
             convertToCurrency(discountedPriceElem[0].text()) to convertToCurrency(oldPriceElem[0].text())
         }
