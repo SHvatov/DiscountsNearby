@@ -5,6 +5,8 @@ import com.discounts.nearby.model.Goods
 import com.discounts.nearby.model.category.GoodCategory
 import com.discounts.nearby.service.supermarket.category.manager.SupermarketCategoryManager
 import com.discounts.nearby.service.supermarket.parser.provider.SupermarketSiteDataProvider
+import com.discounts.nearby.service.supermarket.parser.provider.impl.AbstractSupermarketSiteDataProviderImpl.SearchMode.BY_CATEGORY
+import com.discounts.nearby.service.supermarket.parser.provider.impl.AbstractSupermarketSiteDataProviderImpl.SearchMode.BY_NAME
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Element
 import java.math.BigDecimal
@@ -38,19 +40,37 @@ abstract class AbstractSupermarketSiteDataProviderImpl constructor(
 
     override fun getDataByCategory(goodCategory: GoodCategory,
                                    elementsToFetch: Int,
-                                   discountOnly: Boolean): Goods {
-        val localizedCategory = goodCategoryManager.getLocalized(supermarketCode, goodCategory)
+                                   discountOnly: Boolean) =
+        getGoodData(null, goodCategory, elementsToFetch, discountOnly, BY_CATEGORY)
+
+    override fun getDataByGoodName(goodName: String,
+                                   elementsToFetch: Int) =
+        getGoodData(goodName, null, elementsToFetch, false, BY_NAME)
+
+    private fun getGoodData(goodName: String?,
+                            goodCategory: GoodCategory?,
+                            elementsToFetch: Int,
+                            discountOnly: Boolean,
+                            searchMode: SearchMode): Goods {
         val fetchedElements = mutableListOf<Good>()
         val pageLimit = if (isPaginationSupported) MAX_PAGES_TO_PARSE else 1
+        val localizedCategory = goodCategory?.let {
+            goodCategoryManager.getLocalized(supermarketCode, it)
+        }
 
         for (page in 1..pageLimit) {
-            val products = Jsoup.connect(
-                getConnectionUrl(localizedCategory, discountOnly, page)
-            ).get().select("${productContainer}.${productClass}")
+            val connectionUrl = when (searchMode) {
+                BY_CATEGORY -> getConnectionUrlByCategory(localizedCategory!!, discountOnly, page)
+                BY_NAME -> getConnectionUrlByGoodName(goodName!!, discountOnly, page)
+            }
+
+            val products = Jsoup.connect(connectionUrl)
+                .get()
+                .select("${productContainer}.${productClass}")
 
             val goods = products.mapNotNull { element ->
                 runCatching {
-                    parseProduct(goodCategory, element)
+                    parseProduct(goodCategory ?: GoodCategory.NO_CATEGORY, element)
                 }.getOrNull()
             }.filter {
                 if (discountOnly)
@@ -79,16 +99,31 @@ abstract class AbstractSupermarketSiteDataProviderImpl constructor(
      * Returns the url used to fetch the html document from the [page] with
      * the goods based on the provided [localizedCategory].
      */
-    protected abstract fun getConnectionUrl(localizedCategory: String,
-                                            sortedByDiscount: Boolean,
-                                            page: Int): String
+    protected abstract fun getConnectionUrlByCategory(localizedCategory: String,
+                                                      sortedByDiscount: Boolean,
+                                                      page: Int): String
+
+    /**
+     * Returns the url used to fetch the html document from the [page] with
+     * the goods based on the provided [goodName].
+     */
+    protected abstract fun getConnectionUrlByGoodName(goodName: String,
+                                                      sortedByDiscount: Boolean,
+                                                      page: Int): String
 
     /**
      * Parses the provided [productElement] and builds the [Good] entity based
      * on the parsed data.
      */
-    protected abstract fun parseProduct(goodCategory: GoodCategory,
-                                        productElement: Element): Good
+    protected abstract fun parseProduct(goodCategory: GoodCategory, productElement: Element): Good
+
+    /**
+     * Determines how the goods should be searched.
+     */
+    private enum class SearchMode {
+        BY_CATEGORY,
+        BY_NAME
+    }
 
     private companion object {
         /**
