@@ -11,7 +11,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.web.authentication.HttpStatusEntryPoint
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository
 
 
 /**
@@ -25,15 +24,14 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
         http.authorizeRequests {
             it.apply {
                 antMatchers(*ALLOWED_ENDPOINTS).permitAll()
-                    .anyRequest().authenticated()
+                        .anyRequest().authenticated()
             }
         }.exceptionHandling {
             it.authenticationEntryPoint(HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
         }.logout {
             it.logoutSuccessUrl("/").permitAll()
-        }.csrf {
-            it.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-        }.oauth2Login()
+        }.csrf().disable()
+                .oauth2Login()
     }
 
     @Bean
@@ -49,6 +47,6 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
     }
 
     private companion object {
-        val ALLOWED_ENDPOINTS = arrayOf("/", "/error")
+        val ALLOWED_ENDPOINTS = arrayOf("/", "/error", "/js/**", "/css/**", "/supermarkets/**")
     }
 }

@@ -12,6 +12,18 @@ function init() {
         searchControlProvider: 'yandex#search'
     });
 
+    function getLentaInfo() {
+        alert("vjkvjfk");
+    }
+
+    function getOkeyInfo() {
+
+    }
+
+    let mapHeight = $('#map').height();
+    $('#shop-list').height(mapHeight);
+    $('#shop-list-placeholder').hide();
+
     function addMyPlacemark(coords) {
         if (myPlacemark) {
             myPlacemark.geometry.setCoordinates(coords);
@@ -67,6 +79,7 @@ function init() {
     }
 
     function getShops(coords) {
+        $('#shop-list').empty();
         let circle = new ymaps.Circle([coords, radius], {}, {
             geodesic: true
         });
@@ -94,9 +107,42 @@ function init() {
                 shopPlacemarks.push(placemark);
                 let addedPlacemark = ymaps.geoQuery(placemark).addToMap(myMap);
                 let objectsInsideCircle = addedPlacemark.searchInside(circle);
-                objectsInsideCircle.setOptions('preset', 'islands#redIcon');
+                //console.log(objectsInsideCircle);
+                if (objectsInsideCircle._objects.length > 0) {
+                    objectsInsideCircle.setOptions('preset', 'islands#redIcon');
+                    $('#shop-list').append('<li class="list-group-item">\n' +
+                        '                    <p class="h3">Лента</p>\n' +
+                        '                    <p id="len1_' + i + '"></p>\n' +
+                        '                    <p id="len2_' + i + '"></p>\n' +
+                        '                    <p id="len3_' + i + '"></p>\n' +
+                        '                    <p>Топ скидок на товары:</p>\n' +
+                        '                    <ul class="lenGoods">\n' +
+                        '                    </ul>\n' +
+                        '                    <p></p>\n' +
+                        '                    <button type="button" class="btn btn-info" onclick="getLentaInfo()">Выбрать</button>\n' +
+                        '                </li>'
+                    );
+                    $('#len1_' + i).text("Адрес: " + data.features[i].properties.CompanyMetaData.address);
+                    if (data.features[i].properties.CompanyMetaData.Hours)
+                        $('#len2_' + i).text("Режим работы: " + data.features[i].properties.CompanyMetaData.Hours.text);
+                    else
+                        $('#len2_' + i).text("Режим работы: ежедневно, круглосуточно");
+                    $('#len3_' + i).text("Расстояние до магазина: " + radius / 1000 + " км");
+                }
                 addedPlacemark.remove(objectsInsideCircle).removeFromMap(myMap);
             }
+            $.ajax({
+                url: 'http://localhost:3030/supermarkets/allCategoriesData',
+                type: 'POST',
+                data: {
+                    supermarketCode: "LENTA",
+                    elementsToFetch: 5,
+                    discountOnly: true
+                },
+                success: function () {
+                    alert(data);
+                }
+            });
             myMap.geoObjects.remove(circle);
         });
         $.getJSON("https://search-maps.yandex.ru/v1/?text=ОКЕЙ&bbox=" + searchBounds[0] + "~" + searchBounds[1] + "&rspn=1type=biz&lang=ru_RU&apikey=" + api, function (data) {
@@ -109,11 +155,38 @@ function init() {
                 shopPlacemarks.push(placemark);
                 let addedPlacemark = ymaps.geoQuery(placemark).addToMap(myMap);
                 let objectsInsideCircle = addedPlacemark.searchInside(circle);
-                objectsInsideCircle.setOptions('preset', 'islands#redIcon');
+                //console.log(objectsInsideCircle);
+                if (objectsInsideCircle._objects.length > 0) {
+                    objectsInsideCircle.setOptions('preset', 'islands#redIcon');
+                    $('#shop-list').append('<li class="list-group-item">\n' +
+                        '                    <p class="h3">Окей</p>\n' +
+                        '                    <p id="ok1_' + i + '"></p>\n' +
+                        '                    <p id="ok2_' + i + '"></p>\n' +
+                        '                    <p id="ok3_' + i + '"></p>\n' +
+                        '                    <p>Топ скидок на товары:</p>\n' +
+                        '                    <ul>\n' +
+                        '                        <li>Phasellus iaculis neque</li>\n' +
+                        '                        <li>Purus sodales ultricies</li>\n' +
+                        '                        <li>Vestibulum laoreet porttitor sem</li>\n' +
+                        '                        <li>Ac tristique libero volutpat at</li>\n' +
+                        '                    </ul>\n' +
+                        '                    <p></p>\n' +
+                        '                    <button type="button" class="btn btn-info" onclick="getOkeyInfo()">Выбрать</button>\n' +
+                        '                </li>'
+                    );
+                    $('#ok1_' + i).text("Адрес: " + data.features[i].properties.CompanyMetaData.address);
+                    if (data.features[i].properties.CompanyMetaData.Hours)
+                        $('#ok2_' + i).text("Режим работы: " + data.features[i].properties.CompanyMetaData.Hours.text);
+                    else
+                        $('#ok2_' + i).text("Режим работы: ежедневно, круглосуточно");
+                    $('#ok3_' + i).text("Расстояние до магазина: " + radius / 1000 + " км");
+                    console.log(data.features[i]);
+                }
                 addedPlacemark.remove(objectsInsideCircle).removeFromMap(myMap);
             }
             myMap.geoObjects.remove(circle);
         });
+        $('#shop-list-placeholder').show();
     }
 
     $('#location-btn').click(function () {
