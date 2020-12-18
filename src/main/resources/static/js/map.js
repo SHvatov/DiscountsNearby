@@ -107,7 +107,6 @@ function init() {
                 shopPlacemarks.push(placemark);
                 let addedPlacemark = ymaps.geoQuery(placemark).addToMap(myMap);
                 let objectsInsideCircle = addedPlacemark.searchInside(circle);
-                //console.log(objectsInsideCircle);
                 if (objectsInsideCircle._objects.length > 0) {
                     objectsInsideCircle.setOptions('preset', 'islands#redIcon');
                     $('#shop-list').append('<li class="list-group-item">\n' +
@@ -116,7 +115,7 @@ function init() {
                         '                    <p id="len2_' + i + '"></p>\n' +
                         '                    <p id="len3_' + i + '"></p>\n' +
                         '                    <p>Топ скидок на товары:</p>\n' +
-                        '                    <ul class="lenGoods">\n' +
+                        '                    <ul id="lenGoods' + i + '">\n' +
                         '                    </ul>\n' +
                         '                    <p></p>\n' +
                         '                    <button type="button" class="btn btn-info" onclick="getLentaInfo()">Выбрать</button>\n' +
@@ -128,21 +127,24 @@ function init() {
                     else
                         $('#len2_' + i).text("Режим работы: ежедневно, круглосуточно");
                     $('#len3_' + i).text("Расстояние до магазина: " + radius / 1000 + " км");
+                    $.ajax({
+                        url: 'http://localhost:3030/supermarkets/allCategoriesData',
+                        type: 'POST',
+                        data: {
+                            supermarketCode: "LENTA",
+                            elementsToFetch: 5,
+                            discountOnly: true
+                        },
+                        success: function (d) {
+                            for (let j = 0; j < d.length; j++) {
+                                $('#lenGoods' + i).append('<li id="lenGoodsItem' + i + j + '"></li>');
+                                $('#lenGoodsItem' + i + j).text(d[j].name + " - " + d[j].price + " руб. - " + d[j].discount + "%");
+                            }
+                        }
+                    });
                 }
                 addedPlacemark.remove(objectsInsideCircle).removeFromMap(myMap);
             }
-            $.ajax({
-                url: 'http://localhost:3030/supermarkets/allCategoriesData',
-                type: 'POST',
-                data: {
-                    supermarketCode: "LENTA",
-                    elementsToFetch: 5,
-                    discountOnly: true
-                },
-                success: function () {
-                    alert(data);
-                }
-            });
             myMap.geoObjects.remove(circle);
         });
         $.getJSON("https://search-maps.yandex.ru/v1/?text=ОКЕЙ&bbox=" + searchBounds[0] + "~" + searchBounds[1] + "&rspn=1type=biz&lang=ru_RU&apikey=" + api, function (data) {
@@ -155,7 +157,7 @@ function init() {
                 shopPlacemarks.push(placemark);
                 let addedPlacemark = ymaps.geoQuery(placemark).addToMap(myMap);
                 let objectsInsideCircle = addedPlacemark.searchInside(circle);
-                //console.log(objectsInsideCircle);
+
                 if (objectsInsideCircle._objects.length > 0) {
                     objectsInsideCircle.setOptions('preset', 'islands#redIcon');
                     $('#shop-list').append('<li class="list-group-item">\n' +
@@ -164,11 +166,7 @@ function init() {
                         '                    <p id="ok2_' + i + '"></p>\n' +
                         '                    <p id="ok3_' + i + '"></p>\n' +
                         '                    <p>Топ скидок на товары:</p>\n' +
-                        '                    <ul>\n' +
-                        '                        <li>Phasellus iaculis neque</li>\n' +
-                        '                        <li>Purus sodales ultricies</li>\n' +
-                        '                        <li>Vestibulum laoreet porttitor sem</li>\n' +
-                        '                        <li>Ac tristique libero volutpat at</li>\n' +
+                        '                    <ul id="okGoods' + i + '">\n' +
                         '                    </ul>\n' +
                         '                    <p></p>\n' +
                         '                    <button type="button" class="btn btn-info" onclick="getOkeyInfo()">Выбрать</button>\n' +
@@ -180,7 +178,21 @@ function init() {
                     else
                         $('#ok2_' + i).text("Режим работы: ежедневно, круглосуточно");
                     $('#ok3_' + i).text("Расстояние до магазина: " + radius / 1000 + " км");
-                    console.log(data.features[i]);
+                    $.ajax({
+                        url: 'http://localhost:3030/supermarkets/allCategoriesData',
+                        type: 'POST',
+                        data: {
+                            supermarketCode: "OKEY",
+                            elementsToFetch: 5,
+                            discountOnly: true
+                        },
+                        success: function (d) {
+                            for (let j = 0; j < d.length; j++) {
+                                $('#okGoods' + i).append('<li id="okGoodsItem' + i + j + '"></li>');
+                                $('#okGoodsItem' + i + j).text(d[j].name + " - " + d[j].price + " руб. - " + d[j].discount + "%");
+                            }
+                        }
+                    });
                 }
                 addedPlacemark.remove(objectsInsideCircle).removeFromMap(myMap);
             }
