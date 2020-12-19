@@ -2,16 +2,14 @@ package com.discounts.nearby.config
 
 import com.discounts.nearby.model.User
 import com.discounts.nearby.repository.UserRepository
+import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso
 import org.springframework.boot.autoconfigure.security.oauth2.resource.PrincipalExtractor
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.repository.findByIdOrNull
-import org.springframework.http.HttpStatus
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
-import org.springframework.security.web.authentication.HttpStatusEntryPoint
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository
 
 
 /**
@@ -19,21 +17,20 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository
  */
 @Configuration
 @EnableWebSecurity
+@EnableOAuth2Sso
 class SecurityConfig : WebSecurityConfigurerAdapter() {
     @Throws(Exception::class)
     override fun configure(http: HttpSecurity) {
         http.authorizeRequests {
             it.apply {
-                antMatchers(*ALLOWED_ENDPOINTS).permitAll()
+                mvcMatchers(*ALLOWED_ENDPOINTS).permitAll()
                     .anyRequest().authenticated()
             }
-        }.exceptionHandling {
-            it.authenticationEntryPoint(HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
         }.logout {
             it.logoutSuccessUrl("/").permitAll()
         }.csrf {
-            it.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-        }.oauth2Login()
+            it.disable()
+        }
     }
 
     @Bean
@@ -49,6 +46,6 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
     }
 
     private companion object {
-        val ALLOWED_ENDPOINTS = arrayOf("/", "/error")
+        val ALLOWED_ENDPOINTS = arrayOf("/", "/error", "/js/**", "/css/**", "/supermarkets/**", "")
     }
 }
