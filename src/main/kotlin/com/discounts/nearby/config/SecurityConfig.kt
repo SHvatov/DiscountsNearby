@@ -46,6 +46,6 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
     }
 
     private companion object {
-        val ALLOWED_ENDPOINTS = arrayOf("/", "/error", "/js/**", "/css/**", "/supermarkets/**", "")
+        val ALLOWED_ENDPOINTS = arrayOf("/", "/error", "/js/**", "/css/**", "/supermarkets/**")
     }
 }
