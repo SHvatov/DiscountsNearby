@@ -16,7 +16,7 @@ class MailServiceTestConfig {
     fun mailSender(): JavaMailSender = JavaMailSenderImpl().apply {
         this.host = TEST_HOST
         this.port = TEST_PORT
-        this.javaMailProperties["mail.transport.protocol"] = TEST_PROTOCOL
+        this.protocol = TEST_PROTOCOL
     }
 
     @Bean
