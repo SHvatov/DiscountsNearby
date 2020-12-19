@@ -123,7 +123,7 @@ function init() {
                         $('#len2_' + i).text("Режим работы: " + data.features[i].properties.CompanyMetaData.Hours.text);
                     else
                         $('#len2_' + i).text("Режим работы: ежедневно, круглосуточно");
-                    $('#len3_' + i).text("Расстояние до магазина: " + radius / 1000 + " км");
+                    $('#len3_' + i).text("Расстояние до магазина: " + (ymaps.coordSystem.geo.getDistance(coords, data.features[i].geometry.coordinates) / 1000).toFixed(2) + " км");
                     $.ajax({
                         url: 'http://localhost:3030/supermarkets/allCategoriesData',
                         type: 'POST',
@@ -179,7 +179,7 @@ function init() {
                         $('#ok2_' + i).text("Режим работы: " + data.features[i].properties.CompanyMetaData.Hours.text);
                     else
                         $('#ok2_' + i).text("Режим работы: ежедневно, круглосуточно");
-                    $('#ok3_' + i).text("Расстояние до магазина: " + radius / 1000 + " км");
+                    $('#ok3_' + i).text("Расстояние до магазина: " + (ymaps.coordSystem.geo.getDistance(coords, data.features[i].geometry.coordinates) / 1000).toFixed(2) + " км");
                     $.ajax({
                         url: 'http://localhost:3030/supermarkets/allCategoriesData',
                         type: 'POST',
