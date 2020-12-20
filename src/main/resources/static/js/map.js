@@ -125,13 +125,8 @@ function init() {
                         $('#len2_' + i).text("Режим работы: ежедневно, круглосуточно");
                     $('#len3_' + i).text("Расстояние до магазина: " + (ymaps.coordSystem.geo.getDistance(coords, data.features[i].geometry.coordinates) / 1000).toFixed(2) + " км");
                     $.ajax({
-                        url: 'http://localhost:3030/supermarkets/allCategoriesData',
-                        type: 'POST',
-                        data: {
-                            supermarketCode: "LENTA",
-                            elementsToFetch: 5,
-                            discountOnly: true
-                        },
+                        url: 'http://localhost:3030/api/supermarkets?supermarketCode=LENTA&goodsNumber=5',
+                        type: 'GET',
                         success: function (d) {
                             for (let j = 0; j < d.length; j++) {
                                 $('#lenGoods' + i).append('<li id="lenGoodsItem' + i + j + '"></li>');
@@ -181,13 +176,8 @@ function init() {
                         $('#ok2_' + i).text("Режим работы: ежедневно, круглосуточно");
                     $('#ok3_' + i).text("Расстояние до магазина: " + (ymaps.coordSystem.geo.getDistance(coords, data.features[i].geometry.coordinates) / 1000).toFixed(2) + " км");
                     $.ajax({
-                        url: 'http://localhost:3030/supermarkets/allCategoriesData',
-                        type: 'POST',
-                        data: {
-                            supermarketCode: "OKEY",
-                            elementsToFetch: 5,
-                            discountOnly: true
-                        },
+                        url: 'http://localhost:3030/api/supermarkets?supermarketCode=OKEY&goodsNumber=5',
+                        type: 'GET',
                         success: function (d) {
                             for (let j = 0; j < d.length; j++) {
                                 $('#okGoods' + i).append('<li id="okGoodsItem' + i + j + '"></li>');

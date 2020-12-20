@@ -36,9 +36,10 @@ class SupermarketServiceImpl @Autowired constructor(
                 )
         )
     }
-    fun getAllCategoriesData(supermarketCode: SupermarketCode,
-                             elementsToFetch: Long,
-                             discountOnly: Boolean): List<Good> {
+
+    override fun getAllCategoriesData(supermarketCode: SupermarketCode,
+                                      elementsToFetch: Long,
+                                      discountOnly: Boolean): List<Good> {
         val allGoods =
                 if (discountOnly)
                     repository.getSupermarketByCode(supermarketCode).goodsSortedByDiscount

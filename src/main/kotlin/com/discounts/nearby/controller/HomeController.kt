@@ -19,6 +19,7 @@ class HomeController {
 
         data["user"] = user
 
+
         model.addAttribute("signInData", data)
 
         return "/homePage"

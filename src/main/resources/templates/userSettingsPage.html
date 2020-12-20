@@ -2,16 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <div th:replace="fragments/header :: header-css"/>
-    <div th:replace="fragments/map :: map-css"/>
+    <div th:replace="fragments/profile:: profile-css"/>
     <title>Discounts Nearby</title>
 </head>
 <body>
 
 <div th:replace="fragments/header :: header"/>
 
+<div th:replace="fragments/profile :: profile"/>
 
-<div th:replace="fragments/map :: map"/>
-
-<script src="/js/homePage.js" th:inline="javascript"></script>
+<script src="/js/userSettingsPage.js" th:inline="javascript"></script>
 </body>
 </html>
