@@ -11,6 +11,7 @@ $(document).ready(function () {
 
 let f = false;
 
+
 let curUser;
 
 let catCount;
@@ -59,6 +60,8 @@ let initSettings = function (user) {
 }
 
 let initSignInData = function (data) {
+    cats = data.categories;
+    catCount = data.categories.length;
     curUser = data.user;
     initSettings(curUser);
 }
@@ -79,63 +82,46 @@ let getCategoryName = function (category) {
 
 
 $('#edit-on-msg').click(function () {
+    let favouriteCategories = curUser.preferences.favouriteCategories;
+    for (let i = 0; i < catCount; i++) {
+        let cat = getCategoryName(cats[i]);
+        let row = i + 1;
+        if (!f) {
+            $('#cat-body').append('<tr>\n' +
+                '        <th scope="row">' + row + '</th>\n' +
+                '        <td>' + cat + '</td>\n' +
+                '        <td><input class="form-check-input" type="checkbox" value="" id="check' + i + '"></td>\n' +
+                '    </tr>');
 
-    $.ajax({
-        url: 'http://localhost:3030/api/supermarkets/categories',
-        type: 'GET',
-        success: function (d) {
-            catCount = d.length;
-            cats = d;
-            let favouriteCategories = curUser.preferences.favouriteCategories;
-            for (let i = 0; i < d.length; i++) {
-                let cat = getCategoryName(d[i]);
-                let row = i + 1;
-                if (!f) {
-                    $('#cat-body').append('<tr>\n' +
-                        '        <th scope="row">' + row + '</th>\n' +
-                        '        <td>' + cat + '</td>\n' +
-                        '        <td><input class="form-check-input" type="checkbox" value="" id="check' + i + '"></td>\n' +
-                        '    </tr>');
-
-                }
-
-                console.log("kdffkjdkfjd");
-                console.log(favouriteCategories);
-                if (favouriteCategories && favouriteCategories.includes(d[i])) {
-                    $('#check' + i).prop("checked", true);
-                }
-            }
-            f = true;
         }
-    });
+
+        console.log("kdffkjdkfjd");
+        console.log(favouriteCategories);
+        if (favouriteCategories && favouriteCategories.includes(cats[i])) {
+            $('#check' + i).prop("checked", true);
+        }
+    }
+    f = true;
 
     $('#editCat').modal('show');
 
 });
 
 $('#switch-on-msg').click(function () {
-    $.ajax({
-        url: 'http://localhost:3030/api/supermarkets/categories',
-        type: 'GET',
-        success: function (d) {
-            catCount = d.length;
-            cats = d;
-            for (let i = 0; i < d.length; i++) {
-                let cat = getCategoryName(d[i]);
-                let row = i + 1;
-                if (!f) {
-                    $('#cat-body').append('<tr>\n' +
-                        '        <th scope="row">' + row + '</th>\n' +
-                        '        <td>' + cat + '</td>\n' +
-                        '        <td><input class="form-check-input" type="checkbox" value="" id="check' + i + '"></td>\n' +
-                        '    </tr>');
-                }
-                $('#check' + i).prop("checked", false);
-            }
-
-            f = true;
+    for (let i = 0; i < catCount; i++) {
+        let cat = getCategoryName(cats[i]);
+        let row = i + 1;
+        if (!f) {
+            $('#cat-body').append('<tr>\n' +
+                '        <th scope="row">' + row + '</th>\n' +
+                '        <td>' + cat + '</td>\n' +
+                '        <td><input class="form-check-input" type="checkbox" value="" id="check' + i + '"></td>\n' +
+                '    </tr>');
         }
-    });
+        $('#check' + i).prop("checked", false);
+    }
+
+    f = true;
 
     $('#editCat').modal('show');
 

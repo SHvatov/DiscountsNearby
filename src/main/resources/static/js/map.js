@@ -1,5 +1,17 @@
-const radius = 2500;
 const api = "8f3a3023-ff31-419d-9ea8-1a55f0894184";
+
+let radius = 2500;
+
+let lentaGoods;
+
+let okeyGoods;
+
+let initHomePage = function (data) {
+    lentaGoods = data.lentaGoods;
+    okeyGoods = data.okeyGoods;
+    if (data.user.preferences)
+        radius = user.preferences.searchRadius;
+}
 
 ymaps.ready(init);
 
@@ -124,16 +136,12 @@ function init() {
                     else
                         $('#len2_' + i).text("Режим работы: ежедневно, круглосуточно");
                     $('#len3_' + i).text("Расстояние до магазина: " + (ymaps.coordSystem.geo.getDistance(coords, data.features[i].geometry.coordinates) / 1000).toFixed(2) + " км");
-                    $.ajax({
-                        url: 'http://localhost:3030/api/supermarkets?supermarketCode=LENTA&goodsNumber=5',
-                        type: 'GET',
-                        success: function (d) {
-                            for (let j = 0; j < d.length; j++) {
-                                $('#lenGoods' + i).append('<li id="lenGoodsItem' + i + j + '"></li>');
-                                $('#lenGoodsItem' + i + j).text(d[j].name + " - " + d[j].price + " руб. - " + d[j].discount + "%");
-                            }
-                        }
-                    });
+
+                    for (let j = 0; j < lentaGoods.length; j++) {
+                        $('#lenGoods' + i).append('<li id="lenGoodsItem' + i + j + '"></li>');
+                        $('#lenGoodsItem' + i + j).text(lentaGoods[j].name + " - " + lentaGoods[j].price + " руб. - " + lentaGoods[j].discount + "%");
+                    }
+
                 }
                 addedPlacemark.remove(objectsInsideCircle).removeFromMap(myMap);
             }
@@ -175,16 +183,12 @@ function init() {
                     else
                         $('#ok2_' + i).text("Режим работы: ежедневно, круглосуточно");
                     $('#ok3_' + i).text("Расстояние до магазина: " + (ymaps.coordSystem.geo.getDistance(coords, data.features[i].geometry.coordinates) / 1000).toFixed(2) + " км");
-                    $.ajax({
-                        url: 'http://localhost:3030/api/supermarkets?supermarketCode=OKEY&goodsNumber=5',
-                        type: 'GET',
-                        success: function (d) {
-                            for (let j = 0; j < d.length; j++) {
-                                $('#okGoods' + i).append('<li id="okGoodsItem' + i + j + '"></li>');
-                                $('#okGoodsItem' + i + j).text(d[j].name + " - " + d[j].price + " руб. - " + d[j].discount + "%");
-                            }
-                        }
-                    });
+
+                    for (let j = 0; j < okeyGoods.length; j++) {
+                        $('#okGoods' + i).append('<li id="okGoodsItem' + i + j + '"></li>');
+                        $('#okGoodsItem' + i + j).text(okeyGoods[j].name + " - " + okeyGoods[j].price + " руб. - " + okeyGoods[j].discount + "%");
+                    }
+
                 }
                 addedPlacemark.remove(objectsInsideCircle).removeFromMap(myMap);
             }
