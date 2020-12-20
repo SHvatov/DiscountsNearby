@@ -42,12 +42,17 @@ class UserController @Autowired constructor(
 
         var searchRadius = params[1].toBigDecimal()
 
-        var categories = params[2].split(",").map { GoodCategory.valueOf(it) }.toSet()
+        var notificationsEnabled = params[2].toBoolean()
+
+        var categories = if (params[3] != "")
+            params[3].split(",").map { GoodCategory.valueOf(it) }.toSet()
+        else
+            null
 
         var ourUser = service.findById(userId)
 
         ourUser?.preferences = UserPreferences().apply {
-            this.notificationsEnabled = categories.isNotEmpty()
+            this.notificationsEnabled = notificationsEnabled
             this.searchRadius = searchRadius
             this.favouriteCategories = categories
         }

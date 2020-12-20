@@ -1,5 +1,12 @@
 $(document).ready(function () {
     switchButtons(4);
+
+    for (let i = 1; i <= 10; i++) {
+        $('#list-btn-' + i).click(function () {
+            sr = $('#list-btn-' + i).val();
+            $('#list-btn').text($('#list-btn-' + i).text());
+        });
+    }
 });
 
 let f = false;
@@ -9,6 +16,8 @@ let curUser;
 let catCount;
 
 let cats = [];
+
+let sr = 2500;
 
 let getRadiusName = function (r) {
     switch (r) {
@@ -139,7 +148,8 @@ $('#cancel-cat').click(function () {
 });
 
 let userToStr = function (user) {
-    return user.id + ":" + user.preferences.searchRadius + ":" + user.preferences.favouriteCategories.toString()
+    return user.id + ":" + user.preferences.searchRadius + ":"
+        + user.preferences.notificationsEnabled + ":" + user.preferences.favouriteCategories.toString()
 }
 
 $('#save-cat').click(function () {
@@ -158,7 +168,7 @@ $('#save-cat').click(function () {
     }
 
     curUser.preferences = {
-        notificationsEnabled: true,
+        notificationsEnabled: fc.length > 0,
         favouriteCategories: fc,
         searchRadius: searchRadius
     };
@@ -173,4 +183,84 @@ $('#save-cat').click(function () {
         }
     });
 
+});
+
+$('#yes-btn').click(function () {
+    let fc = [];
+
+    for (let i = 0; i < catCount; i++) {
+        if ($('#check' + i).prop("checked") === true) {
+            fc.push(cats[i]);
+        }
+    }
+
+    let searchRadius = 2500;
+
+    if (curUser.preferences) {
+        searchRadius = curUser.preferences.searchRadius;
+    }
+
+    curUser.preferences = {
+        notificationsEnabled: false,
+        favouriteCategories: fc,
+        searchRadius: searchRadius
+    };
+
+    console.log(fc);
+
+    $.ajax({
+        url: 'http://localhost:3030/api/users/update/' + userToStr(curUser),
+        type: 'GET',
+        success: function (dat) {
+            location.reload();
+        }
+    });
+});
+
+let srFun = function (flag) {
+    let fc = [];
+
+    for (let i = 0; i < catCount; i++) {
+        if ($('#check' + i).prop("checked") === true) {
+            fc.push(cats[i]);
+        }
+    }
+    let ne = fc.length > 0;
+    if (curUser.preferences) {
+        ne = curUser.preferences.notificationsEnabled;
+    }
+
+    let searchRadius;
+    if (flag)
+        searchRadius = sr;
+    else if (curUser.preferences) {
+        searchRadius = curUser.preferences.searchRadius;
+    } else {
+        searchRadius = 2500;
+    }
+    $('#list-btn').text(getRadiusName(searchRadius));
+
+    curUser.preferences = {
+        notificationsEnabled: ne,
+        favouriteCategories: fc,
+        searchRadius: searchRadius
+    };
+
+    console.log(fc);
+
+    $.ajax({
+        url: 'http://localhost:3030/api/users/update/' + userToStr(curUser),
+        type: 'GET',
+        success: function (dat) {
+            location.reload();
+        }
+    });
+}
+
+$('#save-sr').click(function () {
+    srFun(true);
+});
+
+$('#cancel-sr').click(function () {
+    srFun(false);
 });
