@@ -20,7 +20,10 @@ class SupermarketController @Autowired constructor(
 
     @GetMapping("")
     fun getAllCategoriesDataByDiscount(@RequestParam supermarketCode: String,
-                                       @RequestParam goodsNumber: Int): List<Good> {
-        return service.getAllCategoriesData(SupermarketCode.valueOf(supermarketCode), goodsNumber.toLong(), true)
-    }
+                                       @RequestParam goodsNumber: Int): List<Good> = service
+            .getAllCategoriesData(SupermarketCode.valueOf(supermarketCode), goodsNumber.toLong(), true)
+
+
+    @GetMapping("/categories")
+    fun getAllCategoriesNames() = service.getAllCategoriesNames()
 }

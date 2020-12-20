@@ -17,4 +17,6 @@ interface SupermarketService : CrudService<Supermarket, Long> {
     fun getAllCategoriesData(supermarketCode: SupermarketCode,
                              elementsToFetch: Long,
                              discountOnly: Boolean): List<Good>
+
+    fun getAllCategoriesNames(): List<String>
 }

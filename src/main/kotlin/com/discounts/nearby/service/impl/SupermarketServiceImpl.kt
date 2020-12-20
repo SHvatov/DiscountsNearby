@@ -4,6 +4,7 @@ import com.discounts.nearby.config.ComponentsStartupOrder
 import com.discounts.nearby.model.Good
 import com.discounts.nearby.model.Supermarket
 import com.discounts.nearby.model.SupermarketCode
+import com.discounts.nearby.model.category.GoodCategory
 import com.discounts.nearby.repository.SupermarketRepository
 import com.discounts.nearby.service.SupermarketService
 import org.springframework.beans.factory.annotation.Autowired
@@ -47,4 +48,6 @@ class SupermarketServiceImpl @Autowired constructor(
                     repository.getSupermarketByCode(supermarketCode).goodsSortedByPrice
         return allGoods!!.goods!!.stream().limit(elementsToFetch).toList()
     }
+
+    override fun getAllCategoriesNames(): List<String> = GoodCategory.values().map { it.toString() }
 }

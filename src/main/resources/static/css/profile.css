@@ -5,3 +5,8 @@
 .top-margin-col-1 {
     margin-top: 3%;
 }
+
+.lie-link {
+    text-decoration: underline;
+    color: blue;
+}
