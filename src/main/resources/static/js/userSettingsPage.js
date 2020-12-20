@@ -4,6 +4,56 @@ $(document).ready(function () {
 
 let f = false;
 
+let curUser;
+
+let catCount;
+
+let cats = [];
+
+let getRadiusName = function (r) {
+    switch (r) {
+        case 500 :
+            return "500 метров";
+
+        case 1000 :
+            return "1.0 километр";
+        case 1500 :
+            return "1.5 километра";
+        case 2000 :
+            return "2.0 километра";
+        case 2500 :
+            return "2.5 километра";
+        case 3000 :
+            return "3.0 километра";
+        case 3500 :
+            return "3.5 километра";
+        case 4000 :
+            return "4.0 километра";
+        case 4500 :
+            return "4.5 километра";
+        case 5000 :
+            return "5.0 километров";
+    }
+}
+
+let initSettings = function (user) {
+    let preferences = user.preferences;
+
+    if (!preferences) {
+        $("#check-msg").prop("checked", false);
+        $('#list-btn').text("2.5 километра");
+    } else {
+        preferences.notificationsEnabled ? $("#check-msg").prop("checked", true)
+            : $("#check-msg").prop("checked", false);
+        $('#list-btn').text(getRadiusName(preferences.searchRadius));
+    }
+}
+
+let initSignInData = function (data) {
+    curUser = data.user;
+    initSettings(curUser);
+}
+
 let getCategoryName = function (category) {
     let name;
     switch (category) {
@@ -20,51 +70,107 @@ let getCategoryName = function (category) {
 
 
 $('#edit-on-msg').click(function () {
-    if (!f) {
-        $.ajax({
-            url: 'http://localhost:3030/api/supermarkets/categories',
-            type: 'GET',
-            success: function (d) {
-                for (let i = 0; i < d.length; i++) {
-                    let cat = getCategoryName(d[i]);
-                    let row = i + 1;
+
+    $.ajax({
+        url: 'http://localhost:3030/api/supermarkets/categories',
+        type: 'GET',
+        success: function (d) {
+            catCount = d.length;
+            cats = d;
+            let favouriteCategories = curUser.preferences.favouriteCategories;
+            for (let i = 0; i < d.length; i++) {
+                let cat = getCategoryName(d[i]);
+                let row = i + 1;
+                if (!f) {
                     $('#cat-body').append('<tr>\n' +
                         '        <th scope="row">' + row + '</th>\n' +
                         '        <td>' + cat + '</td>\n' +
                         '        <td><input class="form-check-input" type="checkbox" value="" id="check' + i + '"></td>\n' +
                         '    </tr>');
+
                 }
-                f = true;
+
+                console.log("kdffkjdkfjd");
+                console.log(favouriteCategories);
+                if (favouriteCategories && favouriteCategories.includes(d[i])) {
+                    $('#check' + i).prop("checked", true);
+                }
             }
-        });
-    }
+            f = true;
+        }
+    });
 
     $('#editCat').modal('show');
 
 });
 
 $('#switch-on-msg').click(function () {
-
-
-    if (!f) {
-        $.ajax({
-            url: 'http://localhost:3030/api/supermarkets/categories',
-            type: 'GET',
-            success: function (d) {
-                for (let i = 0; i < d.length; i++) {
-                    let cat = getCategoryName(d[i]);
-                    let row = i + 1;
+    $.ajax({
+        url: 'http://localhost:3030/api/supermarkets/categories',
+        type: 'GET',
+        success: function (d) {
+            catCount = d.length;
+            cats = d;
+            for (let i = 0; i < d.length; i++) {
+                let cat = getCategoryName(d[i]);
+                let row = i + 1;
+                if (!f) {
                     $('#cat-body').append('<tr>\n' +
                         '        <th scope="row">' + row + '</th>\n' +
                         '        <td>' + cat + '</td>\n' +
                         '        <td><input class="form-check-input" type="checkbox" value="" id="check' + i + '"></td>\n' +
                         '    </tr>');
                 }
-                f = true;
+                $('#check' + i).prop("checked", false);
             }
-        });
-    }
+
+            f = true;
+        }
+    });
 
     $('#editCat').modal('show');
+
+});
+
+$('#cancel-cat').click(function () {
+    for (let i = 0; i < catCount; i++) {
+        $('#check' + i).prop("checked", false);
+    }
+});
+
+let userToStr = function (user) {
+    return user.id + ":" + user.preferences.searchRadius + ":" + user.preferences.favouriteCategories.toString()
+}
+
+$('#save-cat').click(function () {
+    let fc = [];
+
+    for (let i = 0; i < catCount; i++) {
+        if ($('#check' + i).prop("checked") === true) {
+            fc.push(cats[i]);
+        }
+    }
+
+    let searchRadius = 2500;
+
+    if (curUser.preferences) {
+        searchRadius = curUser.preferences.searchRadius;
+    }
+
+    curUser.preferences = {
+        notificationsEnabled: true,
+        favouriteCategories: fc,
+        searchRadius: searchRadius
+    };
+
+    console.log(fc);
+
+    $.ajax({
+        url: 'http://localhost:3030/api/users/update/' + userToStr(curUser),
+        type: 'GET',
+        success: function (dat) {
+            location.reload();
+        }
+    });
 
 });

@@ -12,5 +12,9 @@
 <div th:replace="fragments/profile :: profile"/>
 
 <script src="/js/userSettingsPage.js" th:inline="javascript"></script>
+<script th:inline="javascript">
+    let myData = [[${signInData}]];
+    initSignInData(myData);
+</script>
 </body>
 </html>

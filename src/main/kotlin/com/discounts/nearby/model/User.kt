@@ -40,14 +40,14 @@ class User : AbstractEntity<String>() {
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class UserPreferences(
-    @param:JsonProperty(value = "notificationsEnabled")
-    val notificationsEnabled: Boolean? = null,
+        @param:JsonProperty(value = "notificationsEnabled")
+        var notificationsEnabled: Boolean? = null,
 
-    @param:JsonProperty(value = "searchRadius")
-    val searchRadius: BigDecimal? = null,
+        @param:JsonProperty(value = "searchRadius")
+        var searchRadius: BigDecimal? = null,
 
-    @param:JsonProperty(value = "name")
-    val favouriteCategories: Set<GoodCategory>? = null
+        @param:JsonProperty(value = "name")
+        var favouriteCategories: Set<GoodCategory>? = null
 ) : Serializable
 
 /**

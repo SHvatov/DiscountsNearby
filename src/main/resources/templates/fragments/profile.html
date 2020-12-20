@@ -11,14 +11,10 @@
     <div class="container-fluid" id="us-page-container">
         <div class="row justify-content-center">
             <div class="col-md-auto top-margin-col">
-                <h5>
-                    Включить уведомления
-                </h5>
+                <h5 id="switch-on-msg" type="button">Включить уведомления</h5>
             </div>
             <div class="col-md-auto top-margin-col">
-                <button id="switch-on-msg">
-                    <i class="far fa-stop-circle"></i>
-                </button>
+                <input class="form-check-input" id="check-msg" type="checkbox" value="">
             </div>
             <div class="col-md-auto top-margin-col">
                 <a class="lie-link" id="edit-on-msg" type="button">редактировать</a>
@@ -42,8 +38,9 @@
                         </table>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-secondary" data-dismiss="modal" type="button">Отмена</button>
-                        <button class="btn btn-primary" type="button">Сохранить</button>
+                        <button class="btn btn-secondary" data-dismiss="modal" id="cancel-cat" type="button">Отмена
+                        </button>
+                        <button class="btn btn-primary" id="save-cat" type="button">Сохранить</button>
                     </div>
                 </div>
             </div>
@@ -56,7 +53,7 @@
         </div>
 
         <div class="row justify-content-center">
-            <div class="col-md-auto top-margin-col-1">
+            <div class="col-md-auto top-margin-col">
                 <h5>
                     Радиус области поиска магазинов
                 </h5>
@@ -66,7 +63,8 @@
         <div class="row justify-content-center">
             <div class="col-md-auto">
                 <div class="btn-group" style="width: 400px">
-                    <button class="btn btn-secondary" style="width: 300px" type="button">500 метров</button>
+                    <button class="btn btn-secondary" id="list-btn" style="width: 300px" type="button">500 метров
+                    </button>
                     <button aria-expanded="false" aria-haspopup="true"
                             class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
                             type="button">
@@ -89,7 +87,7 @@
         </div>
 
         <div class="row justify-content-center">
-            <div class="col-md-auto top-margin-col">
+            <div class="col-md-auto top-margin-col-1">
                 <button class="btn btn-outline-secondary" type="button">Отмена</button>
                 <button class="btn btn-outline-secondary" type="button">Сохранить</button>
             </div>
