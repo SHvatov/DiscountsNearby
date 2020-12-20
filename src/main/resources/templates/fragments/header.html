@@ -4,7 +4,7 @@
         <link crossorigin="anonymous"
               href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
               integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" rel="stylesheet">
-        <link rel="stylesheet" href="../css/header.css" crossorigin="anonymous">
+        <link crossorigin="anonymous" href="/css/header.css" rel="stylesheet">
     </div>
 </head>
 <body>
@@ -14,10 +14,11 @@
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item mr-3">
-                    <button class="btn btn-outline-secondary btn-lg nav-btn active" id="nav-btn-1" type="button">
+                    <a class="btn btn-outline-secondary btn-lg nav-btn pull-right" href="/"
+                       id="nav-btn-1">
                         Магазины
                         поблизости
-                    </button>
+                    </a>
                 </li>
                 <li class="nav-item mr-3">
                     <button class="btn btn-outline-secondary btn-lg nav-btn" id="nav-btn-2" type="button">Магазины
@@ -29,13 +30,17 @@
                     </button>
                 </li>
                 <li class="nav-item mr-3">
-                    <button class="btn btn-outline-secondary btn-lg nav-btn" id="nav-btn-4" th:if="${signInData.user}"
-                            type="button">Профиль
-                    </button>
+                    <a class="btn btn-outline-secondary btn-lg nav-btn pull-right" href=""
+                       id="nav-btn-4" th:if="${signInData.user}">Профиль</a>
+                    <script th:inline="javascript">
+                        let d = [[${signInData}]];
+                        console.log(d);
+                        document.getElementById("nav-btn-4").href = "/api/users/" + d.user.id;
+                    </script>
                 </li>
             </ul>
             <ul class="navbar-nav">
-                <li class="nav-item">
+                <li class="nav-item mr-5">
                     <a class="btn btn-outline-secondary btn-lg nav-btn pull-right"
                        href="/login" th:if="!${signInData.user}">Авторизоваться</a>
                     <a class="btn btn-outline-secondary btn-lg nav-btn pull-right"
@@ -51,7 +56,7 @@
     <script crossorigin="anonymous"
             integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
             src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"></script>
-    <script src="../js/header.js" th:inline="javascript"></script>
+    <script src="/js/header.js" th:inline="javascript"></script>
 </div>
 </body>
 </html>

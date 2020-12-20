@@ -1,0 +1,142 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:fragment="profile-css">
+        <link crossorigin="anonymous" href="/css/profile.css" rel="stylesheet">
+        <link href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" rel="stylesheet">
+    </div>
+</head>
+<body>
+
+<div th:fragment="profile">
+    <div class="container-fluid" id="us-page-container">
+        <div class="row justify-content-center">
+            <div class="col-md-auto top-margin-col">
+                <h5 id="switch-on-msg" type="button">Включить уведомления</h5>
+            </div>
+            <div class="col-md-auto top-margin-col">
+                <input class="form-check-input" id="check-msg" type="checkbox" value="">
+            </div>
+            <div class="col-md-auto top-margin-col">
+                <a class="lie-link" id="edit-on-msg" type="button">редактировать</a>
+            </div>
+        </div>
+
+        <div aria-hidden="true" class="modal fade" id="editCat" role="dialog" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Выберите интересующие категории</h5>
+                        <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-inverse">
+                            <tbody id="cat-body">
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" data-dismiss="modal" id="cancel-cat" type="button">Отмена
+                        </button>
+                        <button class="btn btn-primary" id="save-cat" type="button">Сохранить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-md-auto">
+                <button class="btn btn-outline-secondary" data-target="#yes-no-modal" data-toggle="modal" type="button">
+                    Отписаться от уведомлений
+                </button>
+            </div>
+        </div>
+
+
+        <div aria-hidden="true" class="modal fade" id="yes-no-modal" role="dialog" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Отписаться от уведомлений?</h5>
+                        <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row justify-content-center">
+                            <div class="col-md-auto">
+                                <button class="btn btn-secondary" data-dismiss="modal" type="button">Нет</button>
+                                <button class="btn btn-primary" id="yes-btn" type="button">Да</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-md-auto top-margin-col">
+                <h5>
+                    Радиус области поиска магазинов
+                </h5>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-md-auto">
+                <div class="btn-group" style="width: 400px">
+                    <button class="btn btn-secondary" id="list-btn" style="width: 300px" type="button">500 метров
+                    </button>
+                    <button aria-expanded="false" aria-haspopup="true"
+                            class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
+                            type="button">
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right" style="width: 400px">
+                        <button class="dropdown-item btn-block" id="list-btn-1" type="button" value="500">500 метров
+                        </button>
+                        <button class="dropdown-item btn-block" id="list-btn-2" type="button" value="1000">1.0
+                            километр
+                        </button>
+                        <button class="dropdown-item btn-block" id="list-btn-3" type="button" value="1500">1.5
+                            километра
+                        </button>
+                        <button class="dropdown-item btn-block" id="list-btn-4" type="button" value="2000">2.0
+                            километра
+                        </button>
+                        <button class="dropdown-item btn-block" id="list-btn-5" type="button" value="2500">2.5
+                            километра
+                        </button>
+                        <button class="dropdown-item btn-block" id="list-btn-6" type="button" value="3000">3.0
+                            километра
+                        </button>
+                        <button class="dropdown-item btn-block" id="list-btn-7" type="button" value="3500">3.5
+                            километра
+                        </button>
+                        <button class="dropdown-item btn-block" id="list-btn-8" type="button" value="4000">4.0
+                            километра
+                        </button>
+                        <button class="dropdown-item btn-block" id="list-btn-9" type="button" value="4500">4.5
+                            километра
+                        </button>
+                        <button class="dropdown-item btn-block" id="list-btn-10" type="button" value="5000">5.0
+                            километров
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-md-auto top-margin-col-1">
+                <button class="btn btn-outline-secondary" id="cancel-sr" type="button">Отмена</button>
+                <button class="btn btn-outline-secondary" id="save-sr" type="button">Сохранить</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/profile.js" th:inline="javascript"></script>
+</body>
+</html>
