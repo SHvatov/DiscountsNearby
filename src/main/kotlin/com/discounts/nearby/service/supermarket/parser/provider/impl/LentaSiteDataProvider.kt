@@ -54,8 +54,8 @@ class LentaSiteDataProvider @Autowired constructor(
 
         val priceElements = productElement
             .select("div.sku-prices-block.sku-card-small__prices.sku-prices-block--small")
-            .select("div.sku-prices-block__item.sku-prices-block__item--regular")
-            .select("div.sku-price.sku-prices-block__price.sku-price--small.sku-price--regular")
+            .select("div.sku-prices-block__item.sku-prices-block__item--primary")
+            .select("div.sku-price.sku-prices-block__price.sku-price--small.sku-price--primary")
         val priceInteger = priceElements
             .select("span.sku-price__integer")
             .text()
