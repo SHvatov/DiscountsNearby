@@ -6,11 +6,14 @@ let lentaGoods;
 
 let okeyGoods;
 
+let us;
+
 let initHomePage = function (data) {
     lentaGoods = data.lentaGoods;
     okeyGoods = data.okeyGoods;
-    if (data.user.preferences)
-        radius = user.preferences.searchRadius;
+    if (data.user && data.user.preferences)
+        radius = data.user.preferences.searchRadius;
+    us = data.user;
 }
 
 ymaps.ready(init);
@@ -122,7 +125,7 @@ function init() {
                         '                    <ul id="lenGoods' + i + '">\n' +
                         '                    </ul>\n' +
                         '                    <p></p>\n' +
-                        '                    <button type="button" class="btn btn-info" onclick="getLentaInfo()">Выбрать</button>\n' +
+                        '                    <a type="button" id="len_btn_' + i + '" class="btn btn-info" href="">Выбрать</a>\n' +
                         '                </li>\n' +
                         '                <script th:inline="javascript">\n' +
                         '                   function getLentaInfo() {\n' +
@@ -136,10 +139,14 @@ function init() {
                     else
                         $('#len2_' + i).text("Режим работы: ежедневно, круглосуточно");
                     $('#len3_' + i).text("Расстояние до магазина: " + (ymaps.coordSystem.geo.getDistance(coords, data.features[i].geometry.coordinates) / 1000).toFixed(2) + " км");
-
                     for (let j = 0; j < lentaGoods.length; j++) {
                         $('#lenGoods' + i).append('<li id="lenGoodsItem' + i + j + '"></li>');
                         $('#lenGoodsItem' + i + j).text(lentaGoods[j].name + " - " + lentaGoods[j].price + " руб. - " + lentaGoods[j].discount + "%");
+                    }
+                    if (us) {
+                        document.getElementById("len_btn_" + i).href = "/api/supermarkets/LENTA/" + us.id;
+                    } else {
+                        document.getElementById("len_btn_" + i).href = "/api/supermarkets/LENTA/0";
                     }
 
                 }
