@@ -1,5 +1,7 @@
 $(document).ready(function () {
     switchButtons(2);
+    $('#div-topTen').css("display", "none");
+    $('#div-cats').css("display", "none");
 });
 
 let myShop;
@@ -16,3 +18,17 @@ let initDataPage = function (data) {
         : "Окей";
     $("#nav-btn-2").text("Магазины " + shopName);
 }
+
+$('#btn-topTen').click(function () {
+    $('#div-topTen').css("display", "block");
+    $('#div-cats').css("display", "none");
+    $('#btn-topTen').addClass("active");
+    $('#btn-cats').removeClass("active");
+});
+
+$('#btn-cats').click(function () {
+    $('#div-topTen').css("display", "none");
+    $('#div-cats').css("display", "block");
+    $('#btn-topTen').removeClass("active");
+    $('#btn-cats').addClass("active");
+});
