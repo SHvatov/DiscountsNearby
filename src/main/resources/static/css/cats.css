@@ -1,0 +1,19 @@
+#col li {
+    display: block;
+    float: left;
+    width: 50%;
+}
+
+#col {
+    margin: 2% 0 0 7%;
+    padding: 0;
+    list-style-type: none;
+}
+
+.top-margin-col {
+    margin-top: 3%;
+}
+
+.pict {
+    padding-right: 2%;
+}

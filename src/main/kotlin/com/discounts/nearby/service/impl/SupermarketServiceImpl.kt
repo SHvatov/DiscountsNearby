@@ -64,5 +64,5 @@ class SupermarketServiceImpl @Autowired constructor(
         return res
     }
 
-    override fun getAllCategoriesNames(): List<String> = GoodCategory.values().map { it.toString() }
+    override fun getAllCategoriesNames(): List<String> = GoodCategory.values().filter { it != GoodCategory.NO_CATEGORY }.map { it.toString() }
 }
