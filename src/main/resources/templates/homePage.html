@@ -11,7 +11,10 @@
 
 
 <div th:replace="fragments/map :: map"/>
-
 <script src="/js/homePage.js" th:inline="javascript"></script>
+<script th:inline="javascript">
+    let myData = [[${signInData}]];
+    initHomePage(myData);
+</script>
 </body>
 </html>

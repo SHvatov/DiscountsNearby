@@ -2,6 +2,7 @@ package com.discounts.nearby.controller
 
 import com.discounts.nearby.model.UserPreferences
 import com.discounts.nearby.model.category.GoodCategory
+import com.discounts.nearby.service.SupermarketService
 import com.discounts.nearby.service.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
@@ -18,13 +19,16 @@ import java.util.*
 @Controller
 @RequestMapping("/api/users")
 class UserController @Autowired constructor(
-        private val service: UserService
+        private val userService: UserService,
+        private val supermarketService: SupermarketService
 ) {
     @GetMapping("/{userId}")
     fun getUserSettingsPage(model: Model, @PathVariable userId: String): String {
         val data: MutableMap<String, Any?> = HashMap()
 
-        data["user"] = service.findById(userId)
+        data["user"] = userService.findById(userId)
+
+        data["categories"] = supermarketService.getAllCategoriesNames()
 
         model.addAttribute("signInData", data)
 
@@ -49,7 +53,7 @@ class UserController @Autowired constructor(
         else
             null
 
-        var ourUser = service.findById(userId)
+        var ourUser = userService.findById(userId)
 
         ourUser?.preferences = UserPreferences().apply {
             this.notificationsEnabled = notificationsEnabled
@@ -57,7 +61,9 @@ class UserController @Autowired constructor(
             this.favouriteCategories = categories
         }
 
-        data["user"] = service.save(ourUser!!)
+        data["user"] = userService.save(ourUser!!)
+
+        data["categories"] = supermarketService.getAllCategoriesNames()
 
         model.addAttribute("signInData", data)
 
