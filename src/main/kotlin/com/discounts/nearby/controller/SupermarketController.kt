@@ -36,6 +36,8 @@ class SupermarketController @Autowired constructor(
 
         data["goods"] = supermarketService.getAllCategoriesData(SupermarketCode.valueOf(supermarketCode), 10L, true)
 
+        data["goodsByCategories"] = supermarketService.getAllDataMapByCategories(SupermarketCode.valueOf(supermarketCode), 10L, true)
+
         data["shop"] = supermarketCode
 
         model.addAttribute("signInData", data)

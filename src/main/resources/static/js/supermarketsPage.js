@@ -7,6 +7,7 @@ $(document).ready(function () {
 let myShop;
 let myCats;
 let myGoods;
+let myGoodsByCats;
 
 let getCategoryName = function (category) {
     let name;
@@ -21,6 +22,7 @@ let getCategoryName = function (category) {
     }
     return name;
 }
+
 
 let getPathToPhoto = function (path) {
     let name;
@@ -48,6 +50,8 @@ let initDataPage = function (data) {
     myShop = data.shop;
     myCats = data.categories;
     myGoods = data.goods;
+    myGoodsByCats = data.goodsByCategories;
+    console.log(JSON.stringify(myGoodsByCats));
     let shopName = myShop === "LENTA"
         ? "Лента"
         : "Окей";
@@ -96,8 +100,53 @@ $('#btn-topTen').click(function () {
 });
 
 $('#btn-cats').click(function () {
+    for (let i = 1; i <= 10; i++) {
+        $('#li-elem-topCats-' + i).css("display", "none");
+    }
+
     $('#div-topTen').css("display", "none");
     $('#div-cats').css("display", "block");
     $('#btn-topTen').removeClass("active");
     $('#btn-cats').addClass("active");
+
+    $('#cats-btns').empty();
+
+    for (let i = 0; i < myCats.length; i++) {
+        $('#cats-btns').append(' <button class="btn btn-outline-secondary" id="cats-btn-' + i + '" type="button"></button>\n');
+        $('#cats-btn-' + i).text(getCategoryName(myCats[i]));
+        $('#cats-btn-' + i).click(function () {
+            /*for (let z = 1; z <= 10; z++) {
+                $('#li-elem-topCats-' + z).css("display", "none");
+            }*/
+
+            for (let k = 0; k < myCats.length; k++) {
+                $('#cats-btn-' + k).removeClass("active");
+            }
+            $('#cats-btn-' + i).addClass("active");
+            let cat = myCats[i];
+            let catGoods = myGoodsByCats[cat];
+            let catGoodsCount = catGoods.length;
+            for (let z = 1; z <= 10; z++) {
+                $('#li-elem-topCats-' + z).css("display", "block");
+            }
+
+            for (let z = catGoodsCount + 1; z <= 10; z++) {
+                $('#li-elem-topCats-' + z).css("display", "none");
+            }
+
+            for (let j = 1; j <= catGoodsCount; j++) {
+                console.log(catGoods[j - 1]);
+                (myShop === "OKEY")
+                    ? $('#li-pict-topCats-' + j).attr("src", getPathToPhoto(catGoods[j - 1].pathToPicture))
+                    : $('#li-pict-topCats-' + j).attr("src", catGoods[j - 1].pathToPicture.replace("?preset=thumbnail", ""));
+                $('#li-name-topCats-' + j).text(catGoods[j - 1].name);
+                $('#li-cat-topCats-' + j).text("Категория: " + getCategoryName(catGoods[j - 1].goodCategory));
+                $('#li-weight-topCats-' + j).text("Вес/объем: " + getWeight(catGoods[j - 1].weight));
+                $('#li-with-price-topCats-' + j).text("Цена со скидкой: " + catGoods[j - 1].price + " руб");
+                $('#li-without-price-topCats-' + j).text("Цена без скидки: " + getPriceWithout(catGoods[j - 1]) + " руб");
+                $('#li-sale-topCats-' + j).text("-" + catGoods[j - 1].discount + "%");
+            }
+
+        });
+    }
 });

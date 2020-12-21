@@ -12,6 +12,7 @@ import org.springframework.boot.context.event.ApplicationReadyEvent
 import org.springframework.context.event.EventListener
 import org.springframework.core.annotation.Order
 import org.springframework.stereotype.Service
+import java.util.*
 import kotlin.streams.toList
 
 /**
@@ -49,5 +50,19 @@ class SupermarketServiceImpl @Autowired constructor(
         return allGoods!!.goods!!.stream().limit(elementsToFetch).toList()
     }
 
-    override fun getAllCategoriesNames(): List<String> = GoodCategory.values().map { it.toString() }
+    override fun getAllDataMapByCategories(supermarketCode: SupermarketCode,
+                                           elementsToFetch: Long,
+                                           discountOnly: Boolean): Map<GoodCategory, List<Good>> {
+        val data = getAllCategoriesData(supermarketCode, elementsToFetch, discountOnly)
+        val res: MutableMap<GoodCategory, MutableList<Good>> = EnumMap(GoodCategory::class.java)
+        data.forEach {
+            if (res.containsKey(it.goodCategory))
+                res[it.goodCategory]!!.add(it)
+            else
+                it.goodCategory?.let { it1 -> res.put(it1, mutableListOf(it)) }
+        }
+        return res
+    }
+
+    override fun getAllCategoriesNames(): List<String> = GoodCategory.values().filter { it != GoodCategory.NO_CATEGORY }.map { it.toString() }
 }

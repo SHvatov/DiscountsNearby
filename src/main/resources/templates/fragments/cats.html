@@ -1,12 +1,307 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <div th:fragment="cats-css">
-
+        <link crossorigin="anonymous" href="/css/cats.css" rel="stylesheet">
     </div>
 </head>
 <body>
 <div class="row" id="div-cats" th:fragment="cats">
-    <button>Cats</button>
+    <div class="col-3 align-self-start top-margin-col" id="cats-btns">
+
+    </div>
+    <div class="col-md-auto top-margin-col-1">
+        <ul class="top-margin-col-1" id="col">
+            <li id="li-elem-topCats-1">
+                <div class="card mb-3" style="max-width: 540px; height: 350px;">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <div class="card-body pict">
+                                <img alt="..." height="250" id="li-pict-topCats-1" src="" width="150">
+
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card-body">
+                                <h5 class="card-title" id="li-name-topCats-1"></h5>
+                                <p id="li-cat-topCats-1"></p>
+                                <p id="li-weight-topCats-1"></p>
+                                <p id="li-with-price-topCats-1"></p>
+                                <p id="li-without-price-topCats-1"></p>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="card-body">
+                                <button class="btn btn-outline-secondary" id="li-sale-topCats-1"
+                                        style="border-radius: 50px;"></button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <li id="li-elem-topCats-2">
+                <div class="card mb-3" style="max-width: 540px; height: 350px;">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <div class="card-body pict">
+                                <img alt="..." height="250" id="li-pict-topCats-2" src="" width="150">
+
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card-body">
+                                <h5 class="card-title" id="li-name-topCats-2"></h5>
+                                <p id="li-cat-topCats-2"></p>
+                                <p id="li-weight-topCats-2"></p>
+                                <p id="li-with-price-topCats-2"></p>
+                                <p id="li-without-price-topCats-2"></p>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="card-body">
+                                <button class="btn btn-outline-secondary" id="li-sale-topCats-2"
+                                        style="border-radius: 50px;"></button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <li id="li-elem-topCats-3">
+                <div class="card mb-3" style="max-width: 540px; height: 350px;">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <div class="card-body pict">
+                                <img alt="..." height="250" id="li-pict-topCats-3" src="" width="150">
+
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card-body">
+                                <h5 class="card-title" id="li-name-topCats-3"></h5>
+                                <p id="li-cat-topCats-3"></p>
+                                <p id="li-weight-topCats-3"></p>
+                                <p id="li-with-price-topCats-3"></p>
+                                <p id="li-without-price-topCats-3"></p>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="card-body">
+                                <button class="btn btn-outline-secondary" id="li-sale-topCats-3"
+                                        style="border-radius: 50px;"></button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <li id="li-elem-topCats-4">
+                <div class="card mb-3" style="max-width: 540px; height: 350px;">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <div class="card-body pict">
+                                <img alt="..." height="250" id="li-pict-topCats-4" src="" width="150">
+
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card-body">
+                                <h5 class="card-title" id="li-name-topCats-4"></h5>
+                                <p id="li-cat-topCats-4"></p>
+                                <p id="li-weight-topCats-4"></p>
+                                <p id="li-with-price-topCats-4"></p>
+                                <p id="li-without-price-topCats-4"></p>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="card-body">
+                                <button class="btn btn-outline-secondary" id="li-sale-topCats-4"
+                                        style="border-radius: 50px;"></button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <li id="li-elem-topCats-5">
+                <div class="card mb-3" style="max-width: 540px; height: 350px;">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <div class="card-body pict">
+                                <img alt="..." height="250" id="li-pict-topCats-5" src="" width="150">
+
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card-body">
+                                <h5 class="card-title" id="li-name-topCats-5"></h5>
+                                <p id="li-cat-topCats-5"></p>
+                                <p id="li-weight-topCats-5"></p>
+                                <p id="li-with-price-topCats-5"></p>
+                                <p id="li-without-price-topCats-5"></p>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="card-body">
+                                <button class="btn btn-outline-secondary" id="li-sale-topCats-5"
+                                        style="border-radius: 50px;"></button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <li id="li-elem-topCats-6">
+                <div class="card mb-3" style="max-width: 540px; height: 350px;">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <div class="card-body pict">
+                                <img alt="..." height="250" id="li-pict-topCats-6" src="" width="150">
+
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card-body">
+                                <h5 class="card-title" id="li-name-topCats-6"></h5>
+                                <p id="li-cat-topCats-6"></p>
+                                <p id="li-weight-topCats-6"></p>
+                                <p id="li-with-price-topCats-6"></p>
+                                <p id="li-without-price-topCats-6"></p>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="card-body">
+                                <button class="btn btn-outline-secondary" id="li-sale-topCats-6"
+                                        style="border-radius: 50px;"></button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <li id="li-elem-topCats-7">
+                <div class="card mb-3" style="max-width: 540px; height: 350px;">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <div class="card-body pict">
+                                <img alt="..." height="250" id="li-pict-topCats-7" src="" width="150">
+
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card-body">
+                                <h5 class="card-title" id="li-name-topCats-7"></h5>
+                                <p id="li-cat-topCats-7"></p>
+                                <p id="li-weight-topCats-7"></p>
+                                <p id="li-with-price-topCats-7"></p>
+                                <p id="li-without-price-topCats-7"></p>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="card-body">
+                                <button class="btn btn-outline-secondary" id="li-sale-topCats-7"
+                                        style="border-radius: 50px;"></button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <li id="li-elem-topCats-8">
+                <div class="card mb-3" style="max-width: 540px; height: 350px;">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <div class="card-body pict">
+                                <img alt="..." height="250" id="li-pict-topCats-8" src="" width="150">
+
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card-body">
+                                <h5 class="card-title" id="li-name-topCats-8"></h5>
+                                <p id="li-cat-topCats-8"></p>
+                                <p id="li-weight-topCats-8"></p>
+                                <p id="li-with-price-topCats-8"></p>
+                                <p id="li-without-price-topCats-8"></p>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="card-body">
+                                <button class="btn btn-outline-secondary" id="li-sale-topCats-8"
+                                        style="border-radius: 50px;"></button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <li id="li-elem-topCats-9">
+                <div class="card mb-3" style="max-width: 540px; height: 350px;">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <div class="card-body pict">
+                                <img alt="..." height="250" id="li-pict-topCats-9" src="" width="150">
+
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card-body">
+                                <h5 class="card-title" id="li-name-topCats-9"></h5>
+                                <p id="li-cat-topCats-9"></p>
+                                <p id="li-weight-topCats-9"></p>
+                                <p id="li-with-price-topCats-9"></p>
+                                <p id="li-without-price-topCats-9"></p>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="card-body">
+                                <button class="btn btn-outline-secondary" id="li-sale-topCats-9"
+                                        style="border-radius: 50px;"></button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <li id="li-elem-topCats-10">
+                <div class="card mb-3" style="max-width: 540px; height: 350px;">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <div class="card-body pict">
+                                <img alt="..." height="250" id="li-pict-topCats-10" src="" width="150">
+
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card-body">
+                                <h5 class="card-title" id="li-name-topCats-10"></h5>
+                                <p id="li-cat-topCats-10"></p>
+                                <p id="li-weight-topCats-10"></p>
+                                <p id="li-with-price-topCats-10"></p>
+                                <p id="li-without-price-topCats-10"></p>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="card-body">
+                                <button class="btn btn-outline-secondary" id="li-sale-topCats-10"
+                                        style="border-radius: 50px;"></button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
 </div>
 </body>
 </html>
