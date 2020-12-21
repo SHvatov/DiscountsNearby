@@ -23,29 +23,6 @@ let getCategoryName = function (category) {
     return name;
 }
 
-
-let getPathToPhoto = function (path) {
-    let name;
-    switch (path) {
-        case "https://www.okeydostavka.ru/spb/alkogol-nye-napitki/pivo/pivo-zhiguli-barnoe-svetloe-4-9-0-5l-st-b-mpk" :
-            name = "https://www.okeydostavka.ru/wcsstore/OKMarketCAS/cat_entries/609900/609900_fullimage.jpg";
-            break;
-
-        case "https://www.okeydostavka.ru/spb/alkogol-nye-napitki/pivo/pivo-praga-premium-pils-svetloe-pasterizovannoe-" :
-            name = "https://www.okeydostavka.ru/wcsstore/OKMarketCAS/cat_entries/754060/754060_fullimage.jpg";
-            break;
-
-        case "https://www.okeydostavka.ru/spb/alkogol-nye-napitki/pivo/pivo-stella-artua-svetloe-pasteriz-bezalkogol-noe-" :
-            name = "https://www.okeydostavka.ru/wcsstore/OKMarketCAS/cat_entries/452332/452332_fullimage.jpg";
-            break;
-
-        case "https://www.okeydostavka.ru/spb/alkogol-nye-napitki/pivo/pivo-shpaten-miunkhen-svetloe-5-2-0-5l-zh-b-saninbev" :
-            name = "https://www.okeydostavka.ru/wcsstore/OKMarketCAS/cat_entries/701289/701289_fullimage.jpg";
-            break;
-    }
-    return name;
-}
-
 let initDataPage = function (data) {
     myShop = data.shop;
     myCats = data.categories;
@@ -88,7 +65,7 @@ $('#btn-topTen').click(function () {
 
     for (let i = 1; i <= goodsCount; i++) {
         (myShop === "OKEY")
-            ? $('#li-pict-topTen-' + i).attr("src", getPathToPhoto(myGoods[i - 1].pathToPicture))
+            ? $('#li-pict-topTen-' + i).attr("src", "https://www.okeydostavka.ru" + (myGoods[i - 1].pathToPicture))
             : $('#li-pict-topTen-' + i).attr("src", myGoods[i - 1].pathToPicture.replace("?preset=thumbnail", ""));
         $('#li-name-topTen-' + i).text(myGoods[i - 1].name);
         $('#li-cat-topTen-' + i).text("Категория: " + getCategoryName(myGoods[i - 1].goodCategory));
@@ -137,7 +114,7 @@ $('#btn-cats').click(function () {
             for (let j = 1; j <= catGoodsCount; j++) {
                 console.log(catGoods[j - 1]);
                 (myShop === "OKEY")
-                    ? $('#li-pict-topCats-' + j).attr("src", getPathToPhoto(catGoods[j - 1].pathToPicture))
+                    ? $('#li-pict-topCats-' + j).attr("src", "https://www.okeydostavka.ru" + catGoods[j - 1].pathToPicture)
                     : $('#li-pict-topCats-' + j).attr("src", catGoods[j - 1].pathToPicture.replace("?preset=thumbnail", ""));
                 $('#li-name-topCats-' + j).text(catGoods[j - 1].name);
                 $('#li-cat-topCats-' + j).text("Категория: " + getCategoryName(catGoods[j - 1].goodCategory));
