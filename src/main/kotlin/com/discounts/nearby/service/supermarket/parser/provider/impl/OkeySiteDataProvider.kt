@@ -41,8 +41,8 @@ class OkeySiteDataProvider @Autowired constructor(
 
         val pathToImage = productElement
             .select("div.product-image")
-            .select("a")[0]
-            .absUrl("href")
+            .select("img")
+            .attr("data-src")
 
         val weight = productElement
             .select("div.product-weight")[0]
@@ -59,7 +59,7 @@ class OkeySiteDataProvider @Autowired constructor(
         }
 
         val discount = if (oldPrice != BigDecimal.ZERO) {
-            (oldPrice - price) / price * BigDecimal(100L)
+            (oldPrice - price) / oldPrice * BigDecimal(100L)
         } else BigDecimal.ZERO
         return Good(name, pathToImage, goodCategory, weight, discount, price)
     }
