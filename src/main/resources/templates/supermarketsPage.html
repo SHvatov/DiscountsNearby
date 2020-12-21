@@ -3,10 +3,24 @@
 <head>
     <div th:replace="fragments/header :: header-css"/>
     <title>Discounts Nearby</title>
+    <div th:fragment="supermarketsPage-css">
+        <link crossorigin="anonymous" href="/css/supermarket.css" rel="stylesheet">
+
+    </div>
 </head>
 <body>
 
 <div th:replace="fragments/header :: header"/>
+
+<div class="container-fluid" id="supermarket-page-container">
+    <div class="row">
+        <div class="col-3 align-self-start top-margin-col">
+            <button class="btn btn-outline-secondary" type="button">Топ-10</button>
+            <button class="btn btn-outline-secondary" type="button">Поиск по категориям</button>
+        </div>
+    </div>
+
+</div>
 
 
 <script src="/js/supermarketsPage.js" th:inline="javascript"></script>

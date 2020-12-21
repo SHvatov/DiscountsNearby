@@ -176,7 +176,7 @@ function init() {
                         '                    <ul id="okGoods' + i + '">\n' +
                         '                    </ul>\n' +
                         '                    <p></p>\n' +
-                        '                    <button type="button" class="btn btn-info" onclick="getOkeyInfo()">Выбрать</button>\n' +
+                        '                    <a type="button" id="ok_btn_' + i + '" class="btn btn-info" href="">Выбрать</a>\n' +
                         '                </li>\n' +
                         '                <script th:inline="javascript">\n' +
                         '                   function getOkeyInfo() {\n' +
@@ -194,6 +194,11 @@ function init() {
                     for (let j = 0; j < okeyGoods.length; j++) {
                         $('#okGoods' + i).append('<li id="okGoodsItem' + i + j + '"></li>');
                         $('#okGoodsItem' + i + j).text(okeyGoods[j].name + " - " + okeyGoods[j].price + " руб. - " + okeyGoods[j].discount + "%");
+                    }
+                    if (us) {
+                        document.getElementById("ok_btn_" + i).href = "/api/supermarkets/OKEY/" + us.id;
+                    } else {
+                        document.getElementById("ok_btn_" + i).href = "/api/supermarkets/OKEY/0";
                     }
 
                 }
