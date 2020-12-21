@@ -100,4 +100,9 @@ $('#btn-cats').click(function () {
     $('#div-cats').css("display", "block");
     $('#btn-topTen').removeClass("active");
     $('#btn-cats').addClass("active");
+
+    for (let i = 0; i < myCats.length; i++) {
+        $('#cats-btns').append(' <button class="btn btn-outline-secondary" id="cats-btn-' + i + '" type="button"></button>\n');
+        $('#cats-btn-' + i).text(getCategoryName(myCats[i]));
+    }
 });
