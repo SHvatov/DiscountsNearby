@@ -7,6 +7,7 @@ $(document).ready(function () {
 let myShop;
 let myCats;
 let myGoods;
+let myGoodsByCats;
 
 let getCategoryName = function (category) {
     let name;
@@ -48,6 +49,8 @@ let initDataPage = function (data) {
     myShop = data.shop;
     myCats = data.categories;
     myGoods = data.goods;
+    myGoodsByCats = data.goodsByCategories;
+    console.log(JSON.stringify(myGoodsByCats));
     let shopName = myShop === "LENTA"
         ? "Лента"
         : "Окей";
