@@ -22,6 +22,28 @@ let getCategoryName = function (category) {
     return name;
 }
 
+let getPathToPhoto = function (path) {
+    let name;
+    switch (path) {
+        case "https://www.okeydostavka.ru/spb/alkogol-nye-napitki/pivo/pivo-zhiguli-barnoe-svetloe-4-9-0-5l-st-b-mpk" :
+            name = "https://www.okeydostavka.ru/wcsstore/OKMarketCAS/cat_entries/609900/609900_fullimage.jpg";
+            break;
+
+        case "https://www.okeydostavka.ru/spb/alkogol-nye-napitki/pivo/pivo-praga-premium-pils-svetloe-pasterizovannoe-" :
+            name = "https://www.okeydostavka.ru/wcsstore/OKMarketCAS/cat_entries/754060/754060_fullimage.jpg";
+            break;
+
+        case "https://www.okeydostavka.ru/spb/alkogol-nye-napitki/pivo/pivo-stella-artua-svetloe-pasteriz-bezalkogol-noe-" :
+            name = "https://www.okeydostavka.ru/wcsstore/OKMarketCAS/cat_entries/452332/452332_fullimage.jpg";
+            break;
+
+        case "https://www.okeydostavka.ru/spb/alkogol-nye-napitki/pivo/pivo-shpaten-miunkhen-svetloe-5-2-0-5l-zh-b-saninbev" :
+            name = "https://www.okeydostavka.ru/wcsstore/OKMarketCAS/cat_entries/701289/701289_fullimage.jpg";
+            break;
+    }
+    return name;
+}
+
 let initDataPage = function (data) {
     myShop = data.shop;
     myCats = data.categories;
@@ -37,7 +59,7 @@ function getWeight(weight) {
 }
 
 function getPriceWithout(myGood) {
-    return (myGood.price / (myGood.discount / 100)).toFixed(2);
+    return (myGood.price / ((100 - myGood.discount) / 100)).toFixed(2);
 }
 
 function getDiscount(discount) {
@@ -61,13 +83,15 @@ $('#btn-topTen').click(function () {
     }
 
     for (let i = 1; i <= goodsCount; i++) {
-        $('#li-pict-topTen-' + i).attr("src", "https://www.okeydostavka.ru/wcsstore/OKMarketCAS/cat_entries/609900/609900_fullimage.jpg");
+        (myShop === "OKEY")
+            ? $('#li-pict-topTen-' + i).attr("src", getPathToPhoto(myGoods[i - 1].pathToPicture))
+            : $('#li-pict-topTen-' + i).attr("src", myGoods[i - 1].pathToPicture.replace("?preset=thumbnail", ""));
         $('#li-name-topTen-' + i).text(myGoods[i - 1].name);
         $('#li-cat-topTen-' + i).text("Категория: " + getCategoryName(myGoods[i - 1].goodCategory));
         $('#li-weight-topTen-' + i).text("Вес/объем: " + getWeight(myGoods[i - 1].weight));
         $('#li-with-price-topTen-' + i).text("Цена со скидкой: " + myGoods[i - 1].price + " руб");
         $('#li-without-price-topTen-' + i).text("Цена без скидки: " + getPriceWithout(myGoods[i - 1]) + " руб");
-        $('#li-sale-topTen-' + i).text("-" + getDiscount(myGoods[i - 1].discount) + "%");
+        $('#li-sale-topTen-' + i).text("-" + myGoods[i - 1].discount + "%");
     }
 });
 
