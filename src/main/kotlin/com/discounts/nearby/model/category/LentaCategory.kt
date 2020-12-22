@@ -7,5 +7,6 @@ enum class LentaCategory(
     override val goodCategory: GoodCategory,
     override val localizedCategory: String
 ) : SupermarketCategory {
-    BEER(GoodCategory.BEER, "alkogolnye-napitki")
+    BEER(GoodCategory.BEER, "alkogolnye-napitki"),
+    MEET(GoodCategory.MEET, "myaso-ptica-kolbasa")
 }

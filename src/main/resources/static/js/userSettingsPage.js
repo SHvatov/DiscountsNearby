@@ -73,6 +73,10 @@ let getCategoryName = function (category) {
             name = "Алкоголь";
             break;
 
+        case "MEET" :
+            name = "Мясо";
+            break;
+
         default :
             name = "Товар без категории"
             break;
