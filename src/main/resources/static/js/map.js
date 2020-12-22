@@ -8,6 +8,7 @@ let okeyGoods;
 
 let us;
 
+
 let initHomePage = function (data) {
     lentaGoods = data.lentaGoods;
     okeyGoods = data.okeyGoods;
@@ -137,11 +138,13 @@ function init() {
                             '                </script>\n'
                         );
                         $('#len1_' + i).text("Адрес: " + data.features[i].properties.CompanyMetaData.address);
+                        window.LentaAdr = data.features[i].properties.CompanyMetaData.address;
                         if (data.features[i].properties.CompanyMetaData.Hours)
                             $('#len2_' + i).text("Режим работы: " + data.features[i].properties.CompanyMetaData.Hours.text);
                         else
                             $('#len2_' + i).text("Режим работы: ежедневно, круглосуточно");
                         $('#len3_' + i).text("Расстояние до магазина: " + (ymaps.coordSystem.geo.getDistance(coords, data.features[i].geometry.coordinates) / 1000).toFixed(2) + " км");
+                        window.LentaDist = (ymaps.coordSystem.geo.getDistance(coords, data.features[i].geometry.coordinates) / 1000).toFixed(2);
                         for (let j = 0; j < lentaGoods.length; j++) {
                             $('#lenGoods' + i).append('<li id="lenGoodsItem' + i + j + '"></li>');
                             $('#lenGoodsItem' + i + j).text(lentaGoods[j].name + " - " + lentaGoods[j].price + " руб. - " + lentaGoods[j].discount + "%");
@@ -194,12 +197,14 @@ function init() {
                             '                </script>\n'
                         );
                         $('#ok1_' + i).text("Адрес: " + data.features[i].properties.CompanyMetaData.address);
+                        window.OkeyAdr = data.features[i].properties.CompanyMetaData.address;
                         if (data.features[i].properties.CompanyMetaData.Hours)
                             $('#ok2_' + i).text("Режим работы: " + data.features[i].properties.CompanyMetaData.Hours.text);
                         else
                             $('#ok2_' + i).text("Режим работы: ежедневно, круглосуточно");
                         $('#ok3_' + i).text("Расстояние до магазина: " + (ymaps.coordSystem.geo.getDistance(coords, data.features[i].geometry.coordinates) / 1000).toFixed(2) + " км");
 
+                        window.OkeyDist = (ymaps.coordSystem.geo.getDistance(coords, data.features[i].geometry.coordinates) / 1000).toFixed(2);
                         for (let j = 0; j < okeyGoods.length; j++) {
                             $('#okGoods' + i).append('<li id="okGoodsItem' + i + j + '"></li>');
                             $('#okGoodsItem' + i + j).text(okeyGoods[j].name + " - " + okeyGoods[j].price + " руб. - " + okeyGoods[j].discount + "%");
