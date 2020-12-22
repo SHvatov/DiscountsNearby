@@ -1,0 +1,241 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/header :: header-css"/>
+    <div th:replace="fragments/profile :: profile-css"/>
+    <div th:replace="fragments/map :: map-css"/>
+    <title>Discounts Nearby</title>
+</head>
+<body>
+
+<div th:replace="fragments/header :: header"/>
+
+
+<div class="container-fluid" id="bestPrice-page-container">
+    <div class="row justify-content-center ">
+        <div class="col-5 top-margin-col-1">
+            <div class="input-group mb-3">
+                <input aria-describedby="best-price-btn" class="form-control" id="good-name-input"
+                       placeholder="Введите название товара" type="text">
+                <div class="input-group-append">
+                    <button class="btn btn-success" id="best-price-btn" type="button">Поиск</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-auto">
+            <div class="alert-review" id="alert-placeholder"></div>
+        </div>
+    </div>
+
+    <div class="row" id="best-price-item-1">
+        <div class="col-md-auto mx-auto top-margin-col-1" style="height: 350px; width: 800px">
+            <div class="card mb-3">
+                <div class="row row no-gutters">
+                    <div class="col-md-4">
+                        <div class="card-body" style=" height: 350px; width: 250px; ">
+                            <img alt="..." height="250" id="best-price-pict-1" src="" width="250">
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card-body" style=" height: 350px;">
+                            <h5 class="card-title" id="best-price-name-1"></h5>
+                            <p id="best-price-cat-1"></p>
+                            <p id="best-price-weight-1"></p>
+                            <p id="best-price-price-1"></p>
+                            <p id="best-price-price-without-1"></p>
+                        </div>
+                    </div>
+                    <div class="col-md-1 " style="">
+                        <div class="card-body" style=" height: 350px;">
+                            <button class="btn btn-outline-secondary"
+                                    id="best-price-sale-1" style="margin-right: 100% ;border-radius: 50px;"></button>
+
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card-body" style="margin-left:10%; border-left: 1px solid black; height: 350px;">
+                            <p id="best-price-shop-1"></p>
+                            <p id="best-price-address-1"></p>
+                            <p id="best-price-dir-1"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row" id="best-price-item-2">
+        <div class="col-md-auto mx-auto top-margin-col-1" style=" height: 350px; width: 800px">
+            <div class="card mb-3">
+                <div class="row row no-gutters">
+                    <div class="col-md-4">
+                        <div class="card-body" style=" height: 350px; width: 250px; ">
+                            <img alt="..." height="250" id="best-price-pict-2" src="" width="250">
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card-body" style=" height: 350px;">
+                            <h5 class="card-title" id="best-price-name-2"></h5>
+                            <p id="best-price-cat-2"></p>
+                            <p id="best-price-weight-2"></p>
+                            <p id="best-price-price-2"></p>
+                            <p id="best-price-price-without-2"></p>
+                        </div>
+                    </div>
+                    <div class="col-md-1 " style="">
+                        <div class="card-body" style=" height: 350px;">
+                            <button class="btn btn-outline-secondary"
+                                    id="best-price-sale-2" style="margin-right: 100% ;border-radius: 50px;"></button>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="card-body" style="margin-left:10%; border-left: 1px solid black;height: 350px;">
+                            <p id="best-price-shop-2"></p>
+                            <p id="best-price-address-2"></p>
+                            <p id="best-price-dir-2"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row" id="best-price-item-3">
+        <div class="col-md-auto mx-auto top-margin-col-1" style=" height: 350px; width: 800px">
+            <div class="card mb-3">
+                <div class="row row no-gutters">
+                    <div class="col-md-4">
+                        <div class="card-body" style=" height: 350px; width: 250px; ">
+                            <img alt="..." height="250" id="best-price-pict-3" src="" width="250">
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card-body" style=" height: 350px;">
+                            <h5 class="card-title" id="best-price-name-3"></h5>
+                            <p id="best-price-cat-3"></p>
+                            <p id="best-price-weight-3"></p>
+                            <p id="best-price-price-3"></p>
+                            <p id="best-price-price-without-3"></p>
+                        </div>
+                    </div>
+                    <div class="col-md-1 " style="">
+                        <div class="card-body" style=" height: 350px;">
+                            <button class="btn btn-outline-secondary"
+                                    id="best-price-sale-3" style="margin-right: 100% ;border-radius: 50px;"></button>
+
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card-body" style="margin-left:10%;border-left: 1px solid black; height: 350px;">
+                            <p id="best-price-shop-3"></p>
+                            <p id="best-price-address-3"></p>
+                            <p id="best-price-dir-3"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row" id="best-price-item-4">
+        <div class="col-md-auto mx-auto top-margin-col-1" style=" height: 350px; width: 800px">
+            <div class="card mb-3">
+                <div class="row row no-gutters">
+                    <div class="col-md-4">
+                        <div class="card-body" style=" height: 350px; width: 250px; ">
+                            <img alt="..." height="250" id="best-price-pict-4" src="" width="250">
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card-body" style=" height: 350px;">
+                            <h5 class="card-title" id="best-price-name-4"></h5>
+                            <p id="best-price-cat-4"></p>
+                            <p id="best-price-weight-4"></p>
+                            <p id="best-price-price-4"></p>
+                            <p id="best-price-price-without-4"></p>
+                        </div>
+                    </div>
+                    <div class="col-md-1 " style="">
+                        <div class="card-body" style=" height: 350px;">
+                            <button class="btn btn-outline-secondary"
+                                    id="best-price-sale-4" style="margin-right: 100% ;border-radius: 50px;"></button>
+
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card-body" style="margin-left:10%;border-left: 1px solid black; height: 350px;">
+                            <p id="best-price-shop-4"></p>
+                            <p id="best-price-address-4"></p>
+                            <p id="best-price-dir-4"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row" id="best-price-item-5">
+        <div class="col-md-auto mx-auto top-margin-col-1" style=" height: 350px; width: 800px">
+            <div class="card mb-3">
+                <div class="row row no-gutters">
+                    <div class="col-md-4">
+                        <div class="card-body" style=" height: 350px; width: 250px; ">
+                            <img alt="..." height="250" id="best-price-pict-5" src="" width="250">
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card-body" style=" height: 350px;">
+                            <h5 class="card-title" id="best-price-name-5"></h5>
+                            <p id="best-price-cat-5"></p>
+                            <p id="best-price-weight-5"></p>
+                            <p id="best-price-price-5"></p>
+                            <p id="best-price-price-without-5"></p>
+                        </div>
+                    </div>
+                    <div class="col-md-1 " style="">
+                        <div class="card-body" style=" height: 350px;">
+                            <button class="btn btn-outline-secondary"
+                                    id="best-price-sale-5" style="margin-right: 100% ;border-radius: 50px;"></button>
+
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card-body" style="margin-left:10%;border-left: 1px solid black; height: 350px;">
+                            <p id="best-price-shop-5"></p>
+                            <p id="best-price-address-5"></p>
+                            <p id="best-price-dir-5"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+
+
+<script src="/js/bestPrice.js" th:inline="javascript"></script>
+<script src="/js/map.js" th:inline="javascript"></script>
+<script th:inline="javascript">
+    let myData = [[${signInData}]];
+    initDP(myData)
+</script>
+</body>
+</html>

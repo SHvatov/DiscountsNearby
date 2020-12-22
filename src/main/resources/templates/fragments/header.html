@@ -25,16 +25,23 @@
                     </button>
                 </li>
                 <li class="nav-item mr-3">
-                    <button class="btn btn-outline-secondary btn-lg nav-btn" id="nav-btn-3" type="button">Поиск лучшей
-                        цены
-                    </button>
+                    <a class="btn btn-outline-secondary btn-lg nav-btn pull-right" href=""
+                       id="nav-btn-3">
+                        Поиск лучшей цены
+                    </a>
+                    <script th:inline="javascript">
+                        let data = [[${signInData}]];
+                        (data.user)
+                            ? document.getElementById("nav-btn-3").href = "/api/supermarkets/bestPrice/" + data.user.id
+                            : document.getElementById("nav-btn-3").href = "/api/supermarkets/bestPrice/" + 0
+                    </script>
                 </li>
                 <li class="nav-item mr-3">
                     <a class="btn btn-outline-secondary btn-lg nav-btn pull-right" href=""
                        id="nav-btn-4" th:if="${signInData.user}">Профиль</a>
                     <script th:inline="javascript">
                         let d = [[${signInData}]];
-                        console.log(d);
+
                         document.getElementById("nav-btn-4").href = "/api/users/" + d.user.id;
                     </script>
                 </li>
