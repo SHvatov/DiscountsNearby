@@ -22,13 +22,9 @@ class EmailSendingScheduledServiceImpl @Autowired constructor(
 ) : EmailSendingScheduledService {
     @Scheduled(cron = "0 0 12 * * SUN")
     override fun runScheduled() {
-        val userToNotify = userService.find {
-            it.preferences?.notificationsEnabled == true
-                && !it.preferences?.favouriteCategories.isNullOrEmpty()
-        }
-
-        val subject = "$MAIL_SUBJECT_TEMPLATE ${LocalDate.now()}"
-        userToNotify.forEach {
+        val usersToNotify = userService.findUsersToNotify()
+        val subject = "$MAIL_SUBJECT_TEMPLATE${LocalDate.now()}"
+        usersToNotify.forEach {
             runCatching {
                 mailService.sendMail(it.email!!, subject, prepareMessage(it))
             }
@@ -62,7 +58,7 @@ class EmailSendingScheduledServiceImpl @Autowired constructor(
     }
 
     private companion object {
-        const val MAIL_SUBJECT_TEMPLATE = "Discounts digest for "
+        const val MAIL_SUBJECT_TEMPLATE = "Скидки за "
 
         const val GOODS_BATCH_SIZE = 5
     }

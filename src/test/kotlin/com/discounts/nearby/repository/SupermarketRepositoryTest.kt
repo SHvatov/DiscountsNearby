@@ -4,8 +4,7 @@ import com.discounts.nearby.model.Good
 import com.discounts.nearby.model.Goods
 import com.discounts.nearby.model.Supermarket
 import com.discounts.nearby.model.SupermarketCode
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
@@ -44,6 +43,15 @@ class SupermarketRepositoryTest {
 
         assertNotNull(found)
         assertEquals(persisted, found)
+    }
+
+    @Test
+    fun `remove entity`() {
+        val persisted = prepareEntity()
+        supermarketRepository.delete(persisted)
+
+        val found = supermarketRepository.findByIdOrNull(persisted.id)
+        assertTrue(found == null)
     }
 
     private fun prepareEntity(entity: Supermarket = ENTITY_TO_PERSIST) =
