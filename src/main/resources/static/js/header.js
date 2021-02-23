@@ -1,4 +1,4 @@
-let switchButtons = function (buttonNumber) {
+function switchButtons(buttonNumber) {
     let buttons = $('.nav-btn');
     let button = $("#nav-btn-" + buttonNumber);
     button[0].classList.add("active");

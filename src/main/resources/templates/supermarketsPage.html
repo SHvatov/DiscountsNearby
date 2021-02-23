@@ -31,7 +31,8 @@
 <script src="/js/supermarketsPage.js" th:inline="javascript"></script>
 <script th:inline="javascript">
     let myData = [[${signInData}]];
-    initDataPage(myData);
+    console.log(myData)
+    initSupermarketsPage(myData);
 </script>
 </body>
 </html>

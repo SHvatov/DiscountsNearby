@@ -1,3 +1,3 @@
 $(document).ready(function () {
-    switchButtons(1);
+    switchButtons(1)
 });
