@@ -6,7 +6,6 @@ import com.discounts.nearby.service.SupermarketService
 import com.discounts.nearby.service.UserService
 import com.discounts.nearby.service.supermarket.parser.provider.SupermarketSiteDataProvider
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
@@ -21,16 +20,21 @@ import java.util.*
 @RequestMapping("/api/supermarkets")
 class SupermarketController @Autowired constructor(
     private val userService: UserService,
-    private val supermarketService: SupermarketService,
-    @Qualifier("okeySiteDataParser") private val okeySiteDataProvider: SupermarketSiteDataProvider,
-    @Qualifier("lentaSiteDataParser") private val lentaSiteDataProvider: SupermarketSiteDataProvider
+    private val supermarketService: SupermarketService
 ) {
+    private lateinit var supermarketDataProviders: Map<SupermarketCode, SupermarketSiteDataProvider>
 
+    @Autowired
+    fun setDataProviders(providers: List<SupermarketSiteDataProvider>) {
+        supermarketDataProviders = providers.associateBy { it.supermarketCode }
+    }
 
     @GetMapping("/{supermarketCode}/{userId}")
-    fun getSupermarketPage(model: Model,
-                           @PathVariable supermarketCode: String,
-                           @PathVariable userId: String): String {
+    fun getSupermarketPage(
+        model: Model,
+        @PathVariable supermarketCode: String,
+        @PathVariable userId: String
+    ): String {
 
         val data: MutableMap<String, Any?> = HashMap()
 
@@ -39,10 +43,10 @@ class SupermarketController @Autowired constructor(
 
         data["categories"] = supermarketService.getAllCategoriesNames()
 
-        data["goods"] = supermarketService.getAllCategoriesData(SupermarketCode.valueOf(supermarketCode), 10L, true)
+        data["goods"] = supermarketService.getAllCategoriesData(SupermarketCode.valueOf(supermarketCode), 10, true)
 
         data["goodsByCategories"] =
-            supermarketService.getAllDataMapByCategories(SupermarketCode.valueOf(supermarketCode), 10L, true)
+            supermarketService.getAllDataMapByCategories(SupermarketCode.valueOf(supermarketCode), 10, true)
 
         data["shop"] = supermarketCode
 
@@ -81,11 +85,11 @@ class SupermarketController @Autowired constructor(
         else userService.findById(userId)
 
         val goods = mutableListOf<Good>()
-        val okeyGoods = okeySiteDataProvider.getDataByGoodName(goodName, 5)
-        val lentaGoods = lentaSiteDataProvider.getDataByGoodName(goodName, 5)
+        val okeyGoods = supermarketDataProviders[SupermarketCode.OKEY]?.getDataByGoodName(goodName, 5)
+        val lentaGoods = supermarketDataProviders[SupermarketCode.LENTA]?.getDataByGoodName(goodName, 5)
 
-        okeyGoods.goods?.toMutableList()?.let { goods.addAll(it) }
-        lentaGoods.goods?.toMutableList()?.let { goods.addAll(it) }
+        okeyGoods?.goods?.toMutableList()?.let { goods.addAll(it) }
+        lentaGoods?.goods?.toMutableList()?.let { goods.addAll(it) }
 
         data["goods"] = goods.sortedBy { it.price }.take(5).toList()
 

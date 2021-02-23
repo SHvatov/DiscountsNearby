@@ -4,8 +4,7 @@ import com.discounts.nearby.model.Good
 import com.discounts.nearby.model.Goods
 import com.discounts.nearby.model.Supermarket
 import com.discounts.nearby.model.SupermarketCode
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
@@ -30,7 +29,38 @@ class SupermarketRepositoryTest {
 
     @Test
     fun `find entity by id`() {
-        val toPersist = Supermarket().apply {
+        val persisted = prepareEntity()
+        val found = supermarketRepository.findByIdOrNull(persisted.id)
+
+        assertNotNull(found)
+        assertEquals(persisted, found)
+    }
+
+    @Test
+    fun `find entity by its code`() {
+        val persisted = prepareEntity()
+        val found = supermarketRepository.getSupermarketByCode(SupermarketCode.OKEY)
+
+        assertNotNull(found)
+        assertEquals(persisted, found)
+    }
+
+    @Test
+    fun `remove entity`() {
+        val persisted = prepareEntity()
+        supermarketRepository.delete(persisted)
+
+        val found = supermarketRepository.findByIdOrNull(persisted.id)
+        assertTrue(found == null)
+    }
+
+    private fun prepareEntity(entity: Supermarket = ENTITY_TO_PERSIST) =
+        entityManager
+            .merge(entity)
+            .also { entityManager.flush() }
+
+    private companion object {
+        val ENTITY_TO_PERSIST = Supermarket().apply {
             name = "name"
             code = SupermarketCode.OKEY
             goodsSortedByPrice = Goods(
@@ -48,14 +78,5 @@ class SupermarketRepositoryTest {
                 goods = emptyList()
             )
         }
-
-        val persisted = entityManager
-            .persist(toPersist)
-            .also { entityManager.flush() }
-
-        val found = supermarketRepository.findByIdOrNull(persisted.id)
-
-        assertNotNull(found)
-        assertEquals(persisted, found)
     }
 }

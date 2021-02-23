@@ -1,7 +1,8 @@
-package com.discounts.nearby.service
+package com.discounts.nearby.service.mail
 
 import com.discounts.nearby.config.MailServiceTestConfig
 import com.discounts.nearby.config.extension.SmtpMailServerExtension
+import com.discounts.nearby.service.MailService
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith

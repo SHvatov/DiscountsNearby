@@ -8,5 +8,5 @@ enum class OkeyCategory(
     override val localizedCategory: String
 ) : SupermarketCategory {
     BEER(GoodCategory.BEER, "alkogol-nye-napitki/pivo"),
-    MEAT(GoodCategory.MEAT, "miaso-ptitsa-kolbasy/miaso-i-ptitsa")
+    MEET(GoodCategory.MEAT, "miaso-ptitsa-kolbasy/miaso-i-ptitsa")
 }
