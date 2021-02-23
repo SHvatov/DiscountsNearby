@@ -12,57 +12,52 @@ import org.springframework.boot.context.event.ApplicationReadyEvent
 import org.springframework.context.event.EventListener
 import org.springframework.core.annotation.Order
 import org.springframework.stereotype.Service
-import java.util.*
-import kotlin.streams.toList
 
 /**
  * @author shvatov
  */
 @Service("supermarketService")
 class SupermarketServiceImpl @Autowired constructor(
-        repository: SupermarketRepository
+    repository: SupermarketRepository
 ) : AbstractCrudService<SupermarketRepository, Supermarket, Long>(repository), SupermarketService {
     @EventListener(ApplicationReadyEvent::class)
     @Order(ComponentsStartupOrder.SUPERMARKET_CREATION)
     override fun initSupermarkets() {
         repository.saveAll(
-                listOf(
-                        Supermarket().apply {
-                            name = "Лента"
-                            code = SupermarketCode.LENTA
-                        },
-                        Supermarket().apply {
-                            name = "Okey"
-                            code = SupermarketCode.OKEY
-                        }
-                )
+            listOf(
+                Supermarket().apply {
+                    name = "Лента"
+                    code = SupermarketCode.LENTA
+                },
+                Supermarket().apply {
+                    name = "Okey"
+                    code = SupermarketCode.OKEY
+                }
+            )
         )
     }
 
-    override fun getAllCategoriesData(supermarketCode: SupermarketCode,
-                                      elementsToFetch: Long,
-                                      discountOnly: Boolean): List<Good> {
-        val allGoods =
-                if (discountOnly)
-                    repository.getSupermarketByCode(supermarketCode).goodsSortedByDiscount
-                else
-                    repository.getSupermarketByCode(supermarketCode).goodsSortedByPrice
-        return allGoods!!.goods!!.stream().limit(elementsToFetch).toList()
+    override fun getAllCategoriesData(
+        supermarketCode: SupermarketCode,
+        elementsToFetch: Int,
+        discountOnly: Boolean
+    ): List<Good> {
+        val allGoods = repository.getSupermarketByCode(supermarketCode)
+        return if (discountOnly) {
+            allGoods.goodsSortedByDiscount?.goods
+        } else {
+            allGoods.goodsSortedByPrice?.goods
+        }?.take(elementsToFetch) ?: emptyList()
     }
 
-    override fun getAllDataMapByCategories(supermarketCode: SupermarketCode,
-                                           elementsToFetch: Long,
-                                           discountOnly: Boolean): Map<GoodCategory, List<Good>> {
-        val data = getAllCategoriesData(supermarketCode, elementsToFetch, discountOnly)
-        val res: MutableMap<GoodCategory, MutableList<Good>> = EnumMap(GoodCategory::class.java)
-        data.forEach {
-            if (res.containsKey(it.goodCategory))
-                res[it.goodCategory]!!.add(it)
-            else
-                it.goodCategory?.let { it1 -> res.put(it1, mutableListOf(it)) }
-        }
-        return res
-    }
+    override fun getAllDataMapByCategories(
+        supermarketCode: SupermarketCode,
+        elementsToFetch: Int,
+        discountOnly: Boolean
+    ): Map<GoodCategory, List<Good>> =
+        getAllCategoriesData(supermarketCode, elementsToFetch, discountOnly)
+            .groupBy { it.goodCategory!! }
 
-    override fun getAllCategoriesNames(): List<String> = GoodCategory.values().filter { it != GoodCategory.NO_CATEGORY }.map { it.toString() }
+    override fun getAllCategoriesNames(): List<String> =
+        GoodCategory.values().filter { it != GoodCategory.NO_CATEGORY }.map { it.toString() }
 }

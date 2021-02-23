@@ -5,4 +5,6 @@ import com.discounts.nearby.model.User
 /**
  * @author shvatov
  */
-interface UserService : CrudService<User, String>
+interface UserService : CrudService<User, String> {
+    fun findUsersToNotify(): List<User>
+}

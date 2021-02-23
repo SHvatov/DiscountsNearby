@@ -32,14 +32,14 @@ class Supermarket : AbstractEntity<Long>() {
     @get:Enumerated(EnumType.STRING)
     var code: SupermarketCode? = null
 
+    @get:Lob
     @get:Column(columnDefinition = "CLOB(10K)", name = "GOODS_SORTED_BY_PRICE")
     @get:Convert(converter = GoodsJpaConverter::class)
-    @Lob
     var goodsSortedByPrice: Goods? = null
 
+    @get:Lob
     @get:Column(columnDefinition = "CLOB(10K)", name = "GOODS_SORTED_BY_DISCOUNT")
     @get:Convert(converter = GoodsJpaConverter::class)
-    @Lob
     var goodsSortedByDiscount: Goods? = null
 }
 

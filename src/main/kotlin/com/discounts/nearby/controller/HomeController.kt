@@ -23,10 +23,10 @@ class HomeController @Autowired constructor(
         val data: MutableMap<String, Any?> = HashMap()
 
         val lentaGoods = supermarketService
-                .getAllCategoriesData(SupermarketCode.LENTA, 5L, true)
+            .getAllCategoriesData(SupermarketCode.LENTA, 5, true)
 
         val okeyGoods = supermarketService
-                .getAllCategoriesData(SupermarketCode.OKEY, 5L, true)
+            .getAllCategoriesData(SupermarketCode.OKEY, 5, true)
 
 
         data["user"] = user
