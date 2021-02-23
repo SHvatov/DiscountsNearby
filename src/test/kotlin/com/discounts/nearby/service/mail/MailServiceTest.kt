@@ -27,7 +27,7 @@ class MailServiceTest {
     private lateinit var mailService: MailService
 
     @Test
-    fun sendMail(mailServer: SmtpMailServerExtension.SmtpMailServer) {
+    fun `test send mail`(mailServer: SmtpMailServerExtension.SmtpMailServer) {
         mailService.sendMail(emailTo, subject, content)
 
         val receivedMessages = mailServer.receivedMessages()
