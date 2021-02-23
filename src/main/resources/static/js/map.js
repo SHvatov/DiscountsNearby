@@ -1,23 +1,19 @@
+ymaps.ready(init);
+
 const api = "8f3a3023-ff31-419d-9ea8-1a55f0894184";
-
 let radius = 2500;
-
 let lentaGoods;
-
 let okeyGoods;
-
 let us;
 
 
-let initHomePage = function (data) {
+function initHomePage(data) {
     lentaGoods = data.lentaGoods;
     okeyGoods = data.okeyGoods;
     if (data.user && data.user.preferences)
         radius = data.user.preferences.searchRadius;
     us = data.user;
 }
-
-ymaps.ready(init);
 
 function init() {
     let shopPlacemarks = [], myPlacemark, myMap = new ymaps.Map("map", {
@@ -32,11 +28,11 @@ function init() {
     $('#shop-list').height(mapHeight);
     $('#shop-list-placeholder').hide();
 
-    function addMyPlacemark(coords) {
+    function addPlacemark(coords) {
         if (myPlacemark) {
             myPlacemark.geometry.setCoordinates(coords);
         } else {
-            myPlacemark = createMyPlacemark(coords);
+            myPlacemark = createPlacemark(coords, 'поиск...', 'islands#violetDotIconWithCaption');
             myMap.geoObjects.add(myPlacemark);
 
             myPlacemark.events.add('dragend', function () {
@@ -48,23 +44,14 @@ function init() {
 
     myMap.events.add('click', function (e) {
         let coords = e.get('coords');
-        addMyPlacemark(coords);
+        addPlacemark(coords);
     });
 
-    function createMyPlacemark(coords) {
-        return new ymaps.Placemark(coords, {
-            iconCaption: 'поиск...'
-        }, {
-            preset: 'islands#violetDotIconWithCaption',
-            draggable: true
-        });
-    }
-
-    function createShopPlacemark(coords, iconCaption) {
+    function createPlacemark(coords, iconCaption, preset) {
         return new ymaps.Placemark(coords, {
             iconCaption: iconCaption
         }, {
-            preset: 'islands#redIcon',
+            preset: preset,
             draggable: true
         });
     }
@@ -114,7 +101,7 @@ function init() {
             for (let i = 0; i < data.features.length; i++) {
                 if (!adr.includes(data.features[i].properties.CompanyMetaData.address)) {
                     adr.push(data.features[i].properties.CompanyMetaData.address);
-                    let placemark = createShopPlacemark(data.features[i].geometry.coordinates.reverse(), 'Лента');
+                    let placemark = createPlacemark(data.features[i].geometry.coordinates.reverse(), 'Лента', 'islands#redIcon');
                     shopPlacemarks.push(placemark);
                     let addedPlacemark = ymaps.geoQuery(placemark).addToMap(myMap);
                     let objectsInsideCircle = addedPlacemark.searchInside(circle);
@@ -130,21 +117,14 @@ function init() {
                             '                    </ul>\n' +
                             '                    <p></p>\n' +
                             '                    <a type="button" id="len_btn_' + i + '" class="btn btn-info" href="">Выбрать</a>\n' +
-                            '                </li>\n' +
-                            '                <script th:inline="javascript">\n' +
-                            '                   function getLentaInfo() {\n' +
-                            '                       alert("Нажатие на кнопку Ленты");\n' +
-                            '                   }\n' +
-                            '                </script>\n'
+                            '                </li>\n'
                         );
                         $('#len1_' + i).text("Адрес: " + data.features[i].properties.CompanyMetaData.address);
-                        window.LentaAdr = data.features[i].properties.CompanyMetaData.address;
                         if (data.features[i].properties.CompanyMetaData.Hours)
                             $('#len2_' + i).text("Режим работы: " + data.features[i].properties.CompanyMetaData.Hours.text);
                         else
                             $('#len2_' + i).text("Режим работы: ежедневно, круглосуточно");
                         $('#len3_' + i).text("Расстояние до магазина: " + (ymaps.coordSystem.geo.getDistance(coords, data.features[i].geometry.coordinates) / 1000).toFixed(2) + " км");
-                        window.LentaDist = (ymaps.coordSystem.geo.getDistance(coords, data.features[i].geometry.coordinates) / 1000).toFixed(2);
                         for (let j = 0; j < lentaGoods.length; j++) {
                             $('#lenGoods' + i).append('<li id="lenGoodsItem' + i + j + '"></li>');
                             $('#lenGoodsItem' + i + j).text(lentaGoods[j].name + " - " + lentaGoods[j].price + " руб. - " + lentaGoods[j].discount + "%");
@@ -172,7 +152,7 @@ function init() {
                 if (!adr.includes(data.features[i].properties.CompanyMetaData.address)) {
                     adr.push(data.features[i].properties.CompanyMetaData.address);
 
-                    let placemark = createShopPlacemark(data.features[i].geometry.coordinates.reverse(), 'О\'кей');
+                    let placemark = createPlacemark(data.features[i].geometry.coordinates.reverse(), 'О\'кей', 'islands#redIcon');
                     shopPlacemarks.push(placemark);
                     let addedPlacemark = ymaps.geoQuery(placemark).addToMap(myMap);
                     let objectsInsideCircle = addedPlacemark.searchInside(circle);
@@ -197,14 +177,12 @@ function init() {
                             '                </script>\n'
                         );
                         $('#ok1_' + i).text("Адрес: " + data.features[i].properties.CompanyMetaData.address);
-                        window.OkeyAdr = data.features[i].properties.CompanyMetaData.address;
                         if (data.features[i].properties.CompanyMetaData.Hours)
                             $('#ok2_' + i).text("Режим работы: " + data.features[i].properties.CompanyMetaData.Hours.text);
                         else
                             $('#ok2_' + i).text("Режим работы: ежедневно, круглосуточно");
                         $('#ok3_' + i).text("Расстояние до магазина: " + (ymaps.coordSystem.geo.getDistance(coords, data.features[i].geometry.coordinates) / 1000).toFixed(2) + " км");
 
-                        window.OkeyDist = (ymaps.coordSystem.geo.getDistance(coords, data.features[i].geometry.coordinates) / 1000).toFixed(2);
                         for (let j = 0; j < okeyGoods.length; j++) {
                             $('#okGoods' + i).append('<li id="okGoodsItem' + i + j + '"></li>');
                             $('#okGoodsItem' + i + j).text(okeyGoods[j].name + " - " + okeyGoods[j].price + " руб. - " + okeyGoods[j].discount + "%");
@@ -235,7 +213,7 @@ function init() {
 
                         coords = firstGeoObject.geometry.getCoordinates(),
                         bounds = firstGeoObject.properties.get('boundedBy');
-                    addMyPlacemark(coords);
+                    addPlacemark(coords);
                     getShops(coords);
                 }
             },

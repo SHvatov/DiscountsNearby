@@ -9,8 +9,35 @@ $(document).ready(function () {
     }
 });
 
-let f = false;
+$('#edit-on-msg').click(function () {
+    clickEditOnMsgBtn()
+});
 
+$('#switch-on-msg').click(function () {
+    clickSwitchOnMsgBtn()
+});
+
+$('#cancel-cat').click(function () {
+    clickCancelCatBtn()
+});
+
+$('#save-sr').click(function () {
+    srFun(true)
+});
+
+$('#cancel-sr').click(function () {
+    srFun(false)
+});
+
+$('#save-cat').click(function () {
+    clickSaveCatBtn()
+});
+
+$('#yes-btn').click(function () {
+    clickYesBtn()
+});
+
+let f = false;
 
 let curUser;
 
@@ -20,11 +47,10 @@ let cats = [];
 
 let sr = 2500;
 
-let getRadiusName = function (r) {
+function getRadiusName(r) {
     switch (r) {
         case 500 :
             return "500 метров";
-
         case 1000 :
             return "1.0 километр";
         case 1500 :
@@ -46,7 +72,7 @@ let getRadiusName = function (r) {
     }
 }
 
-let initSettings = function (user) {
+function initSettings(user) {
     let preferences = user.preferences;
 
     if (!preferences) {
@@ -59,21 +85,21 @@ let initSettings = function (user) {
     }
 }
 
-let initSignInData = function (data) {
+function initSettingsPage(data) {
     cats = data.categories;
     catCount = data.categories.length;
     curUser = data.user;
     initSettings(curUser);
 }
 
-let getCategoryName = function (category) {
+function getCategoryName(category) {
     let name;
     switch (category) {
         case "BEER" :
             name = "Алкоголь";
             break;
 
-        case "MEET" :
+        case "MEAT" :
             name = "Мясо";
             break;
 
@@ -85,7 +111,7 @@ let getCategoryName = function (category) {
 }
 
 
-$('#edit-on-msg').click(function () {
+function clickEditOnMsgBtn() {
     let favouriteCategories = curUser.preferences.favouriteCategories;
     for (let i = 0; i < catCount; i++) {
         let cat = getCategoryName(cats[i]);
@@ -99,8 +125,6 @@ $('#edit-on-msg').click(function () {
 
         }
 
-        console.log("kdffkjdkfjd");
-        console.log(favouriteCategories);
         if (favouriteCategories && favouriteCategories.includes(cats[i])) {
             $('#check' + i).prop("checked", true);
         }
@@ -108,10 +132,9 @@ $('#edit-on-msg').click(function () {
     f = true;
 
     $('#editCat').modal('show');
+}
 
-});
-
-$('#switch-on-msg').click(function () {
+function clickSwitchOnMsgBtn() {
     for (let i = 0; i < catCount; i++) {
         let cat = getCategoryName(cats[i]);
         let row = i + 1;
@@ -128,21 +151,20 @@ $('#switch-on-msg').click(function () {
     f = true;
 
     $('#editCat').modal('show');
+}
 
-});
-
-$('#cancel-cat').click(function () {
+function clickCancelCatBtn() {
     for (let i = 0; i < catCount; i++) {
         $('#check' + i).prop("checked", false);
     }
-});
+}
 
-let userToStr = function (user) {
+function userToStr(user) {
     return user.id + ":" + user.preferences.searchRadius + ":"
         + user.preferences.notificationsEnabled + ":" + user.preferences.favouriteCategories.toString()
 }
 
-$('#save-cat').click(function () {
+function clickSaveCatBtn() {
     let fc = [];
 
     for (let i = 0; i < catCount; i++) {
@@ -163,8 +185,6 @@ $('#save-cat').click(function () {
         searchRadius: searchRadius
     };
 
-    console.log(fc);
-
     $.ajax({
         url: 'http://localhost:3030/api/users/update/' + userToStr(curUser),
         type: 'GET',
@@ -172,10 +192,9 @@ $('#save-cat').click(function () {
             location.reload();
         }
     });
+}
 
-});
-
-$('#yes-btn').click(function () {
+function clickYesBtn() {
     let fc = [];
 
     for (let i = 0; i < catCount; i++) {
@@ -196,8 +215,6 @@ $('#yes-btn').click(function () {
         searchRadius: searchRadius
     };
 
-    console.log(fc);
-
     $.ajax({
         url: 'http://localhost:3030/api/users/update/' + userToStr(curUser),
         type: 'GET',
@@ -205,9 +222,10 @@ $('#yes-btn').click(function () {
             location.reload();
         }
     });
-});
+}
 
-let srFun = function (flag) {
+
+function srFun(flag) {
     let fc = [];
 
     for (let i = 0; i < catCount; i++) {
@@ -236,8 +254,6 @@ let srFun = function (flag) {
         searchRadius: searchRadius
     };
 
-    console.log(fc);
-
     $.ajax({
         url: 'http://localhost:3030/api/users/update/' + userToStr(curUser),
         type: 'GET',
@@ -247,10 +263,3 @@ let srFun = function (flag) {
     });
 }
 
-$('#save-sr').click(function () {
-    srFun(true);
-});
-
-$('#cancel-sr').click(function () {
-    srFun(false);
-});
