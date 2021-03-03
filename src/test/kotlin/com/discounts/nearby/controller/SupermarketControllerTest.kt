@@ -1,5 +1,6 @@
 package com.discounts.nearby.controller
 
+import com.discounts.nearby.config.SupermarketTestConfig
 import com.discounts.nearby.model.Good
 import com.discounts.nearby.model.Goods
 import com.discounts.nearby.model.SupermarketCode
@@ -19,6 +20,7 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.mock.mockito.MockBean
+import org.springframework.context.annotation.Import
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
@@ -33,6 +35,7 @@ import java.math.BigDecimal
 )
 @AutoConfigureMockMvc
 @EnableAutoConfiguration(exclude = [SecurityAutoConfiguration::class])
+@Import(SupermarketTestConfig::class)
 internal class SupermarketControllerTest {
 
     @Autowired
@@ -44,11 +47,11 @@ internal class SupermarketControllerTest {
     @MockBean
     private lateinit var userService: UserService
 
+    @Autowired
+    private lateinit var provider1: LentaSiteDataProvider
 
-    private val provider1 = mock(LentaSiteDataProvider::class.java)
-
-
-    private val provider2 = mock(OkeySiteDataProvider::class.java)
+    @Autowired
+    private lateinit var provider2: OkeySiteDataProvider
 
     @Test
     fun `test supermarket page when user id is 0 and supermarket code is LENTA`() {
@@ -202,7 +205,7 @@ internal class SupermarketControllerTest {
 
         verify(userService, times(1)).findById(NOT_NULL_USER_ID)
         verify(provider1, times(1)).getDataByGoodName(VALID_GOOD_NAME, 5)
-        verify(provider2, times(1)).getDataByGoodName(INVALID_GOOD_NAME, 5)
+        verify(provider2, times(1)).getDataByGoodName(VALID_GOOD_NAME, 5)
     }
 
     private companion object {

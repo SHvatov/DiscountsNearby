@@ -5,11 +5,13 @@ import com.discounts.nearby.model.category.GoodCategory
 import com.discounts.nearby.service.supermarket.category.provider.SupermarketCategoryProvider
 import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.whenever
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.InjectMocks
+import org.mockito.Mock
 import org.mockito.junit.jupiter.MockitoExtension
-import org.springframework.boot.test.mock.mockito.MockBean
 
 /**
  * @author Created by Vladislav Marchenko on 03.03.2021
@@ -17,17 +19,21 @@ import org.springframework.boot.test.mock.mockito.MockBean
 @ExtendWith(MockitoExtension::class)
 internal class SupermarketCategoryManagerImplTest {
 
-    @MockBean(name = "lentaCategoryProvider")
+    @Mock
     lateinit var lentaCategoryProvider: SupermarketCategoryProvider
 
-    @MockBean(name = "okeyCategoryProvider")
+    @Mock
     lateinit var okeyCategoryProvider: SupermarketCategoryProvider
 
-    /* @Mock
-    var categoryProviders = listOf(mock(LentaCategoryProvider::class.java), mock(OkeyCategoryProvider::class.java))
-*/
     @InjectMocks
     lateinit var supermarketCategoryManager: SupermarketCategoryManagerImpl
+
+    @BeforeEach
+    fun setUp() {
+        whenever(lentaCategoryProvider.supermarketCode).thenReturn(SupermarketCode.LENTA)
+        whenever(okeyCategoryProvider.supermarketCode).thenReturn(SupermarketCode.OKEY)
+        supermarketCategoryManager.setProviders(listOf(lentaCategoryProvider, okeyCategoryProvider))
+    }
 
     @Test
     fun `test get localized method`() {
