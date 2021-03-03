@@ -40,20 +40,24 @@ class UserController @Autowired constructor(
                                @PathVariable user: String): String {
         val data: MutableMap<String, Any?> = HashMap()
 
-        var params = user.split(":")
+        val params = user.split(":")
 
-        var userId = params[0]
+        if (params.size != 4) {
+            throw IllegalArgumentException()
+        }
 
-        var searchRadius = params[1].toBigDecimal()
+        val userId = params[0]
 
-        var notificationsEnabled = params[2].toBoolean()
+        val searchRadius = params[1].toBigDecimalOrNull() ?: error("Ya pidor")
 
-        var categories = if (params[3] != "")
+        val notificationsEnabled = params[2].toBoolean()
+
+        val categories = if (params[3] != "")
             params[3].split(",").map { GoodCategory.valueOf(it) }.toSet()
         else
             null
 
-        var ourUser = userService.findById(userId)
+        val ourUser = userService.findById(userId)
 
         ourUser?.preferences = UserPreferences().apply {
             this.notificationsEnabled = notificationsEnabled

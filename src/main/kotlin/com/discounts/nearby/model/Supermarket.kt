@@ -50,7 +50,7 @@ class Supermarket : AbstractEntity<Long>() {
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class Goods @JsonCreator constructor(
     @get:JsonProperty(value = "goods")
-    val goods: List<Good>? = null
+    var goods: List<Good>? = null
 ) : Serializable
 
 /**
