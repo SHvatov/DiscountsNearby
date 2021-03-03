@@ -24,6 +24,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import java.math.BigDecimal
 
+
 /**
  * @author Created by Vladislav Marchenko on 01.03.2021
  */
@@ -43,11 +44,11 @@ internal class SupermarketControllerTest {
     @MockBean
     private lateinit var userService: UserService
 
-    @MockBean
-    private lateinit var provider1: LentaSiteDataProvider
 
-    @MockBean
-    private lateinit var provider2: OkeySiteDataProvider
+    private val provider1 = mock(LentaSiteDataProvider::class.java)
+
+
+    private val provider2 = mock(OkeySiteDataProvider::class.java)
 
     @Test
     fun `test supermarket page when user id is 0 and supermarket code is LENTA`() {
@@ -168,11 +169,40 @@ internal class SupermarketControllerTest {
         Assert.assertNotNull(responseHeaders)
         Assert.assertEquals(8, responseHeaders.size)
         Assert.assertEquals("Check for Content-Type header", "Content-Language", responseHeaders.iterator().next())
+
+        verify(provider1, times(1)).getDataByGoodName(INVALID_GOOD_NAME, 5)
+        verify(provider2, times(1)).getDataByGoodName(INVALID_GOOD_NAME, 5)
     }
 
     @Test
     fun `test best price page with data when user id is not 0 and there are goods with this name`() {
+        `when`(provider1.getDataByGoodName(VALID_GOOD_NAME, 5))
+            .thenReturn(Goods().apply {
+                this.goods = LENTA_GOODS
+            })
+        `when`(provider2.getDataByGoodName(INVALID_GOOD_NAME, 5))
+            .thenReturn(EMPTY_GOOD_LIST)
+        `when`(userService.findById(NOT_NULL_USER_ID)).thenReturn(NOT_NULL_USER)
 
+        val result =
+            mockMvc.perform(MockMvcRequestBuilders.get("/api/supermarkets/bestPrice/${VALID_GOOD_NAME}/${NOT_NULL_USER_ID}"))
+                .andExpect(MockMvcResultMatchers.status().isOk)
+                .andExpect(MockMvcResultMatchers.view().name("/bestPricePage"))
+                .andExpect(MockMvcResultMatchers.model().attributeExists("signInData"))
+                .andExpect(MockMvcResultMatchers.model().attribute("signInData", SIXTH_TEST_MODEL_VALUE))
+                .andReturn()
+
+        val mockResponse = result.response
+        Assertions.assertThat(mockResponse.contentType).isEqualTo("text/html;charset=UTF-8")
+
+        val responseHeaders: Collection<*> = mockResponse.headerNames
+        Assert.assertNotNull(responseHeaders)
+        Assert.assertEquals(8, responseHeaders.size)
+        Assert.assertEquals("Check for Content-Type header", "Content-Language", responseHeaders.iterator().next())
+
+        verify(userService, times(1)).findById(NOT_NULL_USER_ID)
+        verify(provider1, times(1)).getDataByGoodName(VALID_GOOD_NAME, 5)
+        verify(provider2, times(1)).getDataByGoodName(INVALID_GOOD_NAME, 5)
     }
 
     private companion object {
@@ -211,6 +241,8 @@ internal class SupermarketControllerTest {
 
         const val INVALID_GOOD_NAME = "Byr-byr-byr"
 
+        const val VALID_GOOD_NAME = "Kozel"
+
         val EMPTY_GOOD_LIST = Goods().apply {
             this.goods = listOf()
         }
@@ -243,6 +275,12 @@ internal class SupermarketControllerTest {
             Pair("user", NULL_USER),
             Pair("goods", EMPTY_GOOD_LIST.goods),
             Pair("goodName", INVALID_GOOD_NAME)
+        )
+
+        val SIXTH_TEST_MODEL_VALUE = mapOf(
+            Pair("user", NOT_NULL_USER),
+            Pair("goods", LENTA_GOODS),
+            Pair("goodName", VALID_GOOD_NAME)
         )
     }
 }

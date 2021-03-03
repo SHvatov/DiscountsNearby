@@ -48,7 +48,7 @@ class UserController @Autowired constructor(
 
         val userId = params[0]
 
-        val searchRadius = params[1].toBigDecimalOrNull() ?: error("Ya pidor")
+        val searchRadius = params[1].toBigDecimalOrNull() ?: error("Invalid search radius format")
 
         val notificationsEnabled = params[2].toBoolean()
 
