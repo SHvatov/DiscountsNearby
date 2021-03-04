@@ -36,16 +36,29 @@ internal class SupermarketCategoryManagerImplTest {
     }
 
     @Test
-    fun `test get localized method`() {
+    fun `test getLocalized() method`() {
         supermarketCategoryManager.getLocalized(SupermarketCode.LENTA, GoodCategory.MEAT)
         verify(lentaCategoryProvider, times(1)).getLocalized(GoodCategory.MEAT)
+
+        supermarketCategoryManager.getLocalized(SupermarketCode.OKEY, GoodCategory.MEAT)
+        verify(okeyCategoryProvider, times(1)).getLocalized(GoodCategory.MEAT)
     }
 
     @Test
-    fun getNormalized() {
+    fun `test getNormalized() method`() {
+        supermarketCategoryManager.getNormalized(SupermarketCode.LENTA, GoodCategory.MEAT.toString())
+        verify(lentaCategoryProvider, times(1)).getNormalized(GoodCategory.MEAT.toString())
+
+        supermarketCategoryManager.getNormalized(SupermarketCode.OKEY, GoodCategory.MEAT.toString())
+        verify(okeyCategoryProvider, times(1)).getNormalized(GoodCategory.MEAT.toString())
     }
 
     @Test
-    fun getAllCategories() {
+    fun `test getAllCategories() method`() {
+        supermarketCategoryManager.getAllCategories(SupermarketCode.LENTA)
+        verify(lentaCategoryProvider, times(1)).getAllCategories()
+
+        supermarketCategoryManager.getAllCategories(SupermarketCode.OKEY)
+        verify(okeyCategoryProvider, times(1)).getAllCategories()
     }
 }
