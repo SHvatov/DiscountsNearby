@@ -1,0 +1,250 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: OkeySiteDataProvider</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.discounts.nearby.service.supermarket.parser.provider.impl</a> ]
+</div>
+
+<h1>Coverage Summary for Class: OkeySiteDataProvider (com.discounts.nearby.service.supermarket.parser.provider.impl)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">OkeySiteDataProvider</td>
+<td class="coverageStat">
+  <span class="percent">
+    88.9%
+  </span>
+  <span class="absValue">
+    (8/ 9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    92.1%
+  </span>
+  <span class="absValue">
+    (35/ 38)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">OkeySiteDataProvider$Companion</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">OkeySiteDataProvider$MockitoMock$862663166</td>
+  </tr>
+  <tr>
+    <td class="name">OkeySiteDataProvider$MockitoMock$862663166$auxiliary$1SDaDLjl</td>
+  </tr>
+  <tr>
+    <td class="name">OkeySiteDataProvider$MockitoMock$862663166$auxiliary$C5PN1K3F</td>
+  </tr>
+  <tr>
+    <td class="name">OkeySiteDataProvider$MockitoMock$862663166$auxiliary$CiFQQmC7</td>
+  </tr>
+  <tr>
+    <td class="name">OkeySiteDataProvider$MockitoMock$862663166$auxiliary$DU8Tgiyg</td>
+  </tr>
+  <tr>
+    <td class="name">OkeySiteDataProvider$MockitoMock$862663166$auxiliary$idzujQtd</td>
+  </tr>
+  <tr>
+    <td class="name">OkeySiteDataProvider$MockitoMock$862663166$auxiliary$JWrPSExO</td>
+  </tr>
+  <tr>
+    <td class="name">OkeySiteDataProvider$MockitoMock$862663166$auxiliary$mnqUO6DX</td>
+  </tr>
+  <tr>
+    <td class="name">OkeySiteDataProvider$MockitoMock$862663166$auxiliary$NvjnnwJi</td>
+  </tr>
+  <tr>
+    <td class="name">OkeySiteDataProvider$MockitoMock$862663166$auxiliary$u3JRSE1c</td>
+  </tr>
+  <tr>
+    <td class="name">OkeySiteDataProvider$MockitoMock$862663166$auxiliary$xhpqNDhZ</td>
+  </tr>
+  <tr>
+    <td class="name">OkeySiteDataProvider$MockitoMock$862663166$auxiliary$xqPGBV4o</td>
+  </tr>
+  <tr>
+    <td class="name">OkeySiteDataProvider$MockitoMock$862663166$auxiliary$ZULc4Ikl</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    90%
+  </span>
+  <span class="absValue">
+    (9/ 10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    92.3%
+  </span>
+  <span class="absValue">
+    (36/ 39)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.discounts.nearby.service.supermarket.parser.provider.impl
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.discounts.nearby.model.Good
+<i>4</i>&nbsp;import com.discounts.nearby.model.SupermarketCode
+<i>5</i>&nbsp;import com.discounts.nearby.model.category.GoodCategory
+<i>6</i>&nbsp;import com.discounts.nearby.service.supermarket.category.manager.SupermarketCategoryManager
+<i>7</i>&nbsp;import com.discounts.nearby.service.supermarket.parser.provider.JsoupHtmlDocumentDataProvider
+<i>8</i>&nbsp;import com.discounts.nearby.service.supermarket.parser.provider.SupermarketSiteDataProvider
+<i>9</i>&nbsp;import org.jsoup.nodes.Element
+<i>10</i>&nbsp;import org.springframework.beans.factory.annotation.Autowired
+<i>11</i>&nbsp;import org.springframework.stereotype.Service
+<i>12</i>&nbsp;import java.math.BigDecimal
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;/**
+<i>15</i>&nbsp; * @author shvatov
+<i>16</i>&nbsp; */
+<i>17</i>&nbsp;@Service(&quot;okeySiteDataParser&quot;)
+<b class="fc"><i>18</i>&nbsp;class OkeySiteDataProvider @Autowired constructor(</b>
+<i>19</i>&nbsp;    documentDataProvider: JsoupHtmlDocumentDataProvider,
+<i>20</i>&nbsp;    goodCategoryManager: SupermarketCategoryManager
+<b class="fc"><i>21</i>&nbsp;) : AbstractSupermarketSiteDataProviderImpl(documentDataProvider, goodCategoryManager), SupermarketSiteDataProvider {</b>
+<b class="fc"><i>22</i>&nbsp;    override val supermarketCode = SupermarketCode.OKEY</b>
+<i>23</i>&nbsp;
+<b class="fc"><i>24</i>&nbsp;    override val productClass = PRODUCT_CLASS</b>
+<i>25</i>&nbsp;
+<b class="fc"><i>26</i>&nbsp;    override val productContainer = PRODUCT_CONTAINER</b>
+<i>27</i>&nbsp;
+<b class="fc"><i>28</i>&nbsp;    override val isPaginationSupported = true</b>
+<i>29</i>&nbsp;
+<i>30</i>&nbsp;    override fun getConnectionUrlByCategory(
+<i>31</i>&nbsp;        localizedCategory: String,
+<i>32</i>&nbsp;        sortedByDiscount: Boolean,
+<i>33</i>&nbsp;        page: Int
+<i>34</i>&nbsp;    ): String {
+<b class="fc"><i>35</i>&nbsp;        val beginIndex = page * ELEMENTS_PER_PAGE</b>
+<b class="fc"><i>36</i>&nbsp;        return &quot;$CONNECTION_URL/$localizedCategory&quot; +</b>
+<b class="fc"><i>37</i>&nbsp;            &quot;#facet:&amp;productBeginIndex:$beginIndex&amp;pageSize=72&amp;orderBy:&amp;pageView:grid&amp;minPrice:&amp;maxPrice:&amp;pageSize:72&amp;&quot;</b>
+<i>38</i>&nbsp;    }
+<i>39</i>&nbsp;
+<i>40</i>&nbsp;    override fun getConnectionUrlByGoodName(
+<i>41</i>&nbsp;        goodName: String,
+<i>42</i>&nbsp;        sortedByDiscount: Boolean,
+<i>43</i>&nbsp;        page: Int
+<i>44</i>&nbsp;    ): String {
+<b class="nc"><i>45</i>&nbsp;        val beginIndex = page * ELEMENTS_PER_PAGE</b>
+<b class="nc"><i>46</i>&nbsp;        return &quot;$CONNECTION_URL/webapp/wcs/stores/servlet/SearchDisplay?categoryId=&amp;storeId=10653&amp;catalogId=12052&quot; +</b>
+<i>47</i>&nbsp;            &quot;&amp;langId=-20&amp;sType=SimpleSearch&amp;resultCatEntryType=2&amp;showResultsPage=true&quot; +
+<b class="nc"><i>48</i>&nbsp;            &quot;&amp;searchSource=Q&amp;pageView=&amp;beginIndex=$beginIndex&amp;pageSize=72&amp;searchTerm=${goodName.replace(&quot; &quot;, &quot;+&quot;)}&quot; +</b>
+<i>49</i>&nbsp;            &quot;#facet:&amp;productBeginIndex:0&amp;orderBy:3&amp;pageView:&amp;minPrice:&amp;maxPrice:&amp;pageSize:72&amp;&quot;
+<i>50</i>&nbsp;    }
+<i>51</i>&nbsp;
+<i>52</i>&nbsp;    override fun parseProduct(goodCategory: GoodCategory, productElement: Element): Good {
+<b class="fc"><i>53</i>&nbsp;        val name = productElement</b>
+<b class="fc"><i>54</i>&nbsp;            .select(&quot;div.product-name&quot;)</b>
+<b class="fc"><i>55</i>&nbsp;            .select(&quot;a&quot;)</b>
+<b class="fc"><i>56</i>&nbsp;            .attr(&quot;title&quot;)</b>
+<i>57</i>&nbsp;
+<b class="fc"><i>58</i>&nbsp;        val pathToImage = productElement</b>
+<b class="fc"><i>59</i>&nbsp;            .select(&quot;div.product-image&quot;)</b>
+<b class="fc"><i>60</i>&nbsp;            .select(&quot;img&quot;)</b>
+<b class="fc"><i>61</i>&nbsp;            .attr(&quot;data-src&quot;)</b>
+<i>62</i>&nbsp;
+<b class="fc"><i>63</i>&nbsp;        val weight = productElement</b>
+<b class="fc"><i>64</i>&nbsp;            .select(&quot;div.product-weight&quot;)[0]</b>
+<b class="fc"><i>65</i>&nbsp;            .text().trim()</b>
+<i>66</i>&nbsp;
+<b class="fc"><i>67</i>&nbsp;        val priceElements = productElement.select(&quot;div.product-price&quot;)</b>
+<b class="fc"><i>68</i>&nbsp;        val discountedPriceElem = priceElements.select(&quot;span.price.label.label-red&quot;)</b>
+<b class="fc"><i>69</i>&nbsp;        val oldPriceElem = priceElements.select(&quot;span.label.small.crossed&quot;)</b>
+<b class="fc"><i>70</i>&nbsp;        val regularPriceElem = priceElements.select(&quot;span.price.label&quot;)</b>
+<b class="fc"><i>71</i>&nbsp;        val (price, oldPrice) = if (discountedPriceElem.isEmpty() &amp;&amp; oldPriceElem.isEmpty()) {</b>
+<b class="fc"><i>72</i>&nbsp;            convertToCurrency(regularPriceElem[0].text()) to BigDecimal.ZERO</b>
+<i>73</i>&nbsp;        } else {
+<b class="fc"><i>74</i>&nbsp;            convertToCurrency(discountedPriceElem[0].text()) to convertToCurrency(oldPriceElem[0].text())</b>
+<i>75</i>&nbsp;        }
+<i>76</i>&nbsp;
+<b class="fc"><i>77</i>&nbsp;        val discount = if (oldPrice != BigDecimal.ZERO) {</b>
+<b class="fc"><i>78</i>&nbsp;            (oldPrice - price) / oldPrice * BigDecimal(100L)</b>
+<b class="fc"><i>79</i>&nbsp;        } else BigDecimal.ZERO</b>
+<b class="fc"><i>80</i>&nbsp;        return Good(name, pathToImage, goodCategory, weight, discount, price)</b>
+<i>81</i>&nbsp;    }
+<i>82</i>&nbsp;
+<i>83</i>&nbsp;    private fun convertToCurrency(currency: String): BigDecimal {
+<b class="fc"><i>84</i>&nbsp;        return BigDecimal(</b>
+<b class="fc"><i>85</i>&nbsp;            currency.replace(RUBBLE, &quot;&quot;)</b>
+<b class="fc"><i>86</i>&nbsp;                .replace(&quot;,&quot;, &quot;.&quot;)</b>
+<b class="fc"><i>87</i>&nbsp;                .trim()</b>
+<i>88</i>&nbsp;        )
+<i>89</i>&nbsp;    }
+<i>90</i>&nbsp;
+<b class="fc"><i>91</i>&nbsp;    private companion object {</b>
+<i>92</i>&nbsp;        const val CONNECTION_URL = &quot;https://www.okeydostavka.ru/spb&quot;
+<i>93</i>&nbsp;
+<i>94</i>&nbsp;        const val PRODUCT_CLASS = &quot;product.ok-theme&quot;
+<i>95</i>&nbsp;
+<i>96</i>&nbsp;        const val PRODUCT_CONTAINER = &quot;div&quot;
+<i>97</i>&nbsp;
+<i>98</i>&nbsp;        const val ELEMENTS_PER_PAGE = 72L
+<i>99</i>&nbsp;
+<i>100</i>&nbsp;        const val RUBBLE = &quot;₽&quot;
+<i>101</i>&nbsp;    }
+<i>102</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-03-04 11:35</div>
+</div>
+</body>
+</html>

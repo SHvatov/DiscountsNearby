@@ -1,0 +1,156 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: MailConfig</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.discounts.nearby.config</a> ]
+</div>
+
+<h1>Coverage Summary for Class: MailConfig (com.discounts.nearby.config)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">MailConfig</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (8/ 8)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">MailConfig$$EnhancerBySpringCGLIB$$753bbeb4</td>
+  </tr>
+  <tr>
+    <td class="name">MailConfig$$EnhancerBySpringCGLIB$$753bbeb4$$FastClassBySpringCGLIB$$c7725ffc</td>
+  </tr>
+  <tr>
+    <td class="name">MailConfig$$FastClassBySpringCGLIB$$c42c731f</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (8/ 8)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.discounts.nearby.config
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import org.springframework.beans.factory.annotation.Value
+<i>4</i>&nbsp;import org.springframework.context.annotation.Bean
+<i>5</i>&nbsp;import org.springframework.context.annotation.Configuration
+<i>6</i>&nbsp;import org.springframework.mail.javamail.JavaMailSender
+<i>7</i>&nbsp;import org.springframework.mail.javamail.JavaMailSenderImpl
+<i>8</i>&nbsp;import org.springframework.scheduling.annotation.EnableScheduling
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;/**
+<i>12</i>&nbsp; * Configuration for JavaMailSender bean
+<i>13</i>&nbsp; * @author Created by Vladislav Marchenko on 19.11.2020
+<i>14</i>&nbsp; */
+<i>15</i>&nbsp;@Configuration
+<i>16</i>&nbsp;@EnableScheduling
+<b class="fc"><i>17</i>&nbsp;class MailConfig {</b>
+<i>18</i>&nbsp;    /**
+<i>19</i>&nbsp;     * Host used by third party email service
+<i>20</i>&nbsp;     */
+<i>21</i>&nbsp;    @Value(&quot;\${spring.mail.host}&quot;)
+<i>22</i>&nbsp;    private val mailHost: String? = null
+<i>23</i>&nbsp;
+<i>24</i>&nbsp;    /**
+<i>25</i>&nbsp;     * Username of account from which the mailing will be carried out
+<i>26</i>&nbsp;     */
+<i>27</i>&nbsp;    @Value(&quot;\${spring.mail.username}&quot;)
+<i>28</i>&nbsp;    private val mailUsername: String? = null
+<i>29</i>&nbsp;
+<i>30</i>&nbsp;    /**
+<i>31</i>&nbsp;     * Password from account from which the mailing will be carried out
+<i>32</i>&nbsp;     */
+<i>33</i>&nbsp;    @Value(&quot;\${spring.mail.password}&quot;)
+<i>34</i>&nbsp;    private val mailPassword: String? = null
+<i>35</i>&nbsp;
+<i>36</i>&nbsp;    /**
+<i>37</i>&nbsp;     * Port used by third party email service
+<i>38</i>&nbsp;     */
+<i>39</i>&nbsp;    @Value(&quot;\${spring.mail.port}&quot;)
+<i>40</i>&nbsp;    private val mailPort = 0
+<i>41</i>&nbsp;
+<i>42</i>&nbsp;    /**
+<i>43</i>&nbsp;     * Protocol used by third party email service
+<i>44</i>&nbsp;     */
+<i>45</i>&nbsp;    @Value(&quot;\${spring.mail.protocol}&quot;)
+<i>46</i>&nbsp;    private val mailProtocol: String? = null
+<i>47</i>&nbsp;
+<i>48</i>&nbsp;    @Bean
+<b class="fc"><i>49</i>&nbsp;    fun mailSender(): JavaMailSender = JavaMailSenderImpl().apply {</b>
+<b class="fc"><i>50</i>&nbsp;        host = mailHost</b>
+<b class="fc"><i>51</i>&nbsp;        port = mailPort</b>
+<b class="fc"><i>52</i>&nbsp;        username = mailUsername</b>
+<b class="fc"><i>53</i>&nbsp;        password = mailPassword</b>
+<b class="fc"><i>54</i>&nbsp;        javaMailProperties[&quot;mail.transport.protocol&quot;] = mailProtocol</b>
+<b class="fc"><i>55</i>&nbsp;    }</b>
+<i>56</i>&nbsp;
+<i>57</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-03-04 11:35</div>
+</div>
+</body>
+</html>

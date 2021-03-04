@@ -1,0 +1,84 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: SupermarketSiteDataProvider</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.discounts.nearby.service.supermarket.parser.provider</a> ]
+</div>
+
+<h1>Coverage Summary for Class: SupermarketSiteDataProvider (com.discounts.nearby.service.supermarket.parser.provider)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+</tr>
+  <tr>
+    <td class="name">SupermarketSiteDataProvider$MockitoMock$1900248224</td>
+  </tr>
+  <tr>
+    <td class="name">SupermarketSiteDataProvider$MockitoMock$1900248224$auxiliary$l3KHVKFz</td>
+  </tr>
+  <tr>
+    <td class="name">SupermarketSiteDataProvider$MockitoMock$1900248224$auxiliary$o6AlTzZU</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.discounts.nearby.service.supermarket.parser.provider
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.discounts.nearby.model.Goods
+<i>4</i>&nbsp;import com.discounts.nearby.model.category.GoodCategory
+<i>5</i>&nbsp;import com.discounts.nearby.service.supermarket.SupermarketDataProvider
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;/**
+<i>8</i>&nbsp; * @author shvatov
+<i>9</i>&nbsp; */
+<i>10</i>&nbsp;interface SupermarketSiteDataProvider : SupermarketDataProvider {
+<i>11</i>&nbsp;    /**
+<i>12</i>&nbsp;     * Finds the [elementsToFetch] products for each category registered in the system.
+<i>13</i>&nbsp;     * [discountOnly] flag determines, whether information about products with discount only should be fetched
+<i>14</i>&nbsp;     * from the site or not.
+<i>15</i>&nbsp;     */
+<i>16</i>&nbsp;    fun getAllCategoriesData(elementsToFetch: Int, discountOnly: Boolean): Map&lt;GoodCategory, Goods&gt;
+<i>17</i>&nbsp;
+<i>18</i>&nbsp;    /**
+<i>19</i>&nbsp;     * Finds goods only by specific [goodCategory].
+<i>20</i>&nbsp;     * @see getAllCategoriesData
+<i>21</i>&nbsp;     */
+<i>22</i>&nbsp;    fun getDataByCategory(goodCategory: GoodCategory, elementsToFetch: Int, discountOnly: Boolean): Goods
+<i>23</i>&nbsp;
+<i>24</i>&nbsp;    /**
+<i>25</i>&nbsp;     * Finds all the goods by the provided [goodName].
+<i>26</i>&nbsp;     */
+<i>27</i>&nbsp;    fun getDataByGoodName(goodName: String, elementsToFetch: Int): Goods
+<i>28</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-03-04 11:35</div>
+</div>
+</body>
+</html>
