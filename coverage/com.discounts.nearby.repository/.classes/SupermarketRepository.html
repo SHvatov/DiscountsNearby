@@ -1,0 +1,68 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: SupermarketRepository</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.discounts.nearby.repository</a> ]
+</div>
+
+<h1>Coverage Summary for Class: SupermarketRepository (com.discounts.nearby.repository)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+</tr>
+  <tr>
+    <td class="name">SupermarketRepository$MockitoMock$511354768</td>
+  </tr>
+  <tr>
+    <td class="name">SupermarketRepository$MockitoMock$511354768$auxiliary$P8GGAQju</td>
+  </tr>
+  <tr>
+    <td class="name">SupermarketRepository$MockitoMock$511354768$auxiliary$zQhDvUMf</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.discounts.nearby.repository
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.discounts.nearby.model.Supermarket
+<i>4</i>&nbsp;import com.discounts.nearby.model.SupermarketCode
+<i>5</i>&nbsp;import org.springframework.data.jpa.repository.JpaRepository
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;/**
+<i>8</i>&nbsp; * @author shvatov
+<i>9</i>&nbsp; */
+<i>10</i>&nbsp;interface SupermarketRepository : JpaRepository&lt;Supermarket, Long&gt; {
+<i>11</i>&nbsp;    fun getSupermarketByCode(supermarketCode: SupermarketCode): Supermarket
+<i>12</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-03-04 11:35</div>
+</div>
+</body>
+</html>
