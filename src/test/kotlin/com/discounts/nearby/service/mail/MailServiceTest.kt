@@ -21,7 +21,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
 @ExtendWith(value = [SpringExtension::class, SmtpMailServerExtension::class])
 @SpringBootTest(classes = [MailServiceTestConfig::class])
 @EnableConfigurationProperties
-@TestPropertySource(locations = ["classpath:application-test.properties"])
+@TestPropertySource(locations = ["classpath:application-test.yaml"])
 @ActiveProfiles("test")
 class MailServiceTest {
     @Autowired

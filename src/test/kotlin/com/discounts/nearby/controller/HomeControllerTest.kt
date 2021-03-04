@@ -15,6 +15,8 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.mock.mockito.MockBean
+import org.springframework.test.context.ActiveProfiles
+import org.springframework.test.context.TestPropertySource
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
@@ -29,6 +31,8 @@ import java.math.BigDecimal
 )
 @AutoConfigureMockMvc
 @EnableAutoConfiguration(exclude = [SecurityAutoConfiguration::class])
+@TestPropertySource(locations = ["classpath:application-test.yaml"])
+@ActiveProfiles("test")
 internal class HomeControllerTest {
     @Autowired
     private lateinit var mockMvc: MockMvc
