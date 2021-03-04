@@ -1,0 +1,130 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: SupermarketService</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.discounts.nearby.service</a> ]
+</div>
+
+<h1>Coverage Summary for Class: SupermarketService (com.discounts.nearby.service)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+  <tr>
+    <td class="name">SupermarketService$DefaultImpls</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 2)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">SupermarketService$MockitoMock$1651930392</td>
+  </tr>
+  <tr>
+    <td class="name">SupermarketService$MockitoMock$1651930392$auxiliary$jQtWEE7g</td>
+  </tr>
+  <tr>
+    <td class="name">SupermarketService$MockitoMock$1651930392$auxiliary$srQSN5My</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 2)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.discounts.nearby.service
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.discounts.nearby.model.Good
+<i>4</i>&nbsp;import com.discounts.nearby.model.Supermarket
+<i>5</i>&nbsp;import com.discounts.nearby.model.SupermarketCode
+<i>6</i>&nbsp;import com.discounts.nearby.model.category.GoodCategory
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;/**
+<i>9</i>&nbsp; * @author shvatov
+<i>10</i>&nbsp; */
+<i>11</i>&nbsp;interface SupermarketService : CrudService&lt;Supermarket, Long&gt; {
+<i>12</i>&nbsp;    /**
+<i>13</i>&nbsp;     * Initializes the data stored in supermarket table with default entities
+<i>14</i>&nbsp;     * on the start up of the application.
+<i>15</i>&nbsp;     */
+<i>16</i>&nbsp;    fun initSupermarkets()
+<i>17</i>&nbsp;
+<i>18</i>&nbsp;    fun getAllCategoriesData(
+<i>19</i>&nbsp;        supermarketCode: SupermarketCode,
+<i>20</i>&nbsp;        elementsToFetch: Int,
+<b class="nc"><i>21</i>&nbsp;        discountOnly: Boolean = false</b>
+<i>22</i>&nbsp;    ): List&lt;Good&gt;
+<i>23</i>&nbsp;
+<i>24</i>&nbsp;    fun getAllDataMapByCategories(
+<i>25</i>&nbsp;        supermarketCode: SupermarketCode,
+<i>26</i>&nbsp;        elementsToFetch: Int,
+<b class="nc"><i>27</i>&nbsp;        discountOnly: Boolean = false</b>
+<i>28</i>&nbsp;    ): Map&lt;GoodCategory, List&lt;Good&gt;&gt;
+<i>29</i>&nbsp;
+<i>30</i>&nbsp;    fun getAllCategoriesNames(): List&lt;String&gt;
+<i>31</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-03-04 11:29</div>
+</div>
+</body>
+</html>

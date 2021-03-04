@@ -1,0 +1,105 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: UserKt</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.discounts.nearby.model</a> ]
+</div>
+
+<h1>Coverage Summary for Class: UserKt (com.discounts.nearby.model)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">UserKt</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.discounts.nearby.model
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.discounts.nearby.model.category.GoodCategory
+<i>4</i>&nbsp;import com.discounts.nearby.utils.JpaJsonConverter
+<i>5</i>&nbsp;import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+<i>6</i>&nbsp;import com.fasterxml.jackson.annotation.JsonProperty
+<i>7</i>&nbsp;import java.io.Serializable
+<i>8</i>&nbsp;import java.math.BigDecimal
+<i>9</i>&nbsp;import javax.persistence.*
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;/**
+<i>12</i>&nbsp; * Name of the table.
+<i>13</i>&nbsp; */
+<i>14</i>&nbsp;private const val TABLE_NAME = &quot;user&quot;
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;/**
+<i>17</i>&nbsp; * Entity, which stores the information about the supermarket.
+<i>18</i>&nbsp; * @author shvatov
+<i>19</i>&nbsp; */
+<i>20</i>&nbsp;@Entity
+<i>21</i>&nbsp;@Table(name = TABLE_NAME)
+<i>22</i>&nbsp;class User : AbstractEntity&lt;String&gt;() {
+<i>23</i>&nbsp;    @Id
+<i>24</i>&nbsp;    override var id: String? = null
+<i>25</i>&nbsp;
+<i>26</i>&nbsp;    @get:Column
+<i>27</i>&nbsp;    var name: String? = null
+<i>28</i>&nbsp;
+<i>29</i>&nbsp;    @get:Column
+<i>30</i>&nbsp;    var email: String? = null
+<i>31</i>&nbsp;
+<i>32</i>&nbsp;    @get:Column(columnDefinition = &quot;JSON&quot;)
+<i>33</i>&nbsp;    @Convert(converter = UserPreferencesJpaConverter::class)
+<i>34</i>&nbsp;    var preferences: UserPreferences? = null
+<i>35</i>&nbsp;}
+<i>36</i>&nbsp;
+<i>37</i>&nbsp;/**
+<i>38</i>&nbsp; * Data class, which stores the info about the user preferences in the DB as a basic JSON.
+<i>39</i>&nbsp; * @author shvatov
+<i>40</i>&nbsp; */
+<i>41</i>&nbsp;@JsonIgnoreProperties(ignoreUnknown = true)
+<i>42</i>&nbsp;data class UserPreferences(
+<i>43</i>&nbsp;        @param:JsonProperty(value = &quot;notificationsEnabled&quot;)
+<i>44</i>&nbsp;        var notificationsEnabled: Boolean? = null,
+<i>45</i>&nbsp;
+<i>46</i>&nbsp;        @param:JsonProperty(value = &quot;searchRadius&quot;)
+<i>47</i>&nbsp;        var searchRadius: BigDecimal? = null,
+<i>48</i>&nbsp;
+<i>49</i>&nbsp;        @param:JsonProperty(value = &quot;name&quot;)
+<i>50</i>&nbsp;        var favouriteCategories: Set&lt;GoodCategory&gt;? = null
+<i>51</i>&nbsp;) : Serializable
+<i>52</i>&nbsp;
+<i>53</i>&nbsp;/**
+<i>54</i>&nbsp; * Converts [UserPreferences] into JSON and back.
+<i>55</i>&nbsp; * @author shvatov
+<i>56</i>&nbsp; */
+<i>57</i>&nbsp;@Converter(autoApply = true)
+<i>58</i>&nbsp;class UserPreferencesJpaConverter : JpaJsonConverter&lt;UserPreferences&gt;()
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-03-04 11:29</div>
+</div>
+</body>
+</html>

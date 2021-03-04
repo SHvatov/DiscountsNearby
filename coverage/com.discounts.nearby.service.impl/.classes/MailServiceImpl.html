@@ -1,0 +1,118 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: MailServiceImpl</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.discounts.nearby.service.impl</a> ]
+</div>
+
+<h1>Coverage Summary for Class: MailServiceImpl (com.discounts.nearby.service.impl)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">MailServiceImpl</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (8/ 8)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.discounts.nearby.service.impl
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.discounts.nearby.service.MailService
+<i>4</i>&nbsp;import org.springframework.beans.factory.annotation.Value
+<i>5</i>&nbsp;import org.springframework.mail.SimpleMailMessage
+<i>6</i>&nbsp;import org.springframework.mail.javamail.JavaMailSender
+<i>7</i>&nbsp;import org.springframework.stereotype.Service
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;/**
+<i>11</i>&nbsp; * Implementation of [com.discounts.nearby.service.MailService]
+<i>12</i>&nbsp; * @author Created by Vladislav Marchenko on 20.11.2020
+<i>13</i>&nbsp; */
+<i>14</i>&nbsp;@Service(&quot;mailService&quot;)
+<b class="fc"><i>15</i>&nbsp;class MailServiceImpl constructor(</b>
+<i>16</i>&nbsp;        private val mailSender: JavaMailSender
+<i>17</i>&nbsp;) : MailService {
+<i>18</i>&nbsp;
+<i>19</i>&nbsp;    /**
+<i>20</i>&nbsp;     * Username of account from which the mailing will be carried out
+<i>21</i>&nbsp;     */
+<i>22</i>&nbsp;    @Value(&quot;\${spring.mail.username}&quot;)
+<i>23</i>&nbsp;    private val username: String? = null
+<i>24</i>&nbsp;
+<i>25</i>&nbsp;    override fun sendMail(emailTo: String, subject: String, message: String) {
+<b class="fc"><i>26</i>&nbsp;        val mailMessage = SimpleMailMessage()</b>
+<i>27</i>&nbsp;
+<b class="fc"><i>28</i>&nbsp;        mailMessage.setFrom(username!!)</b>
+<b class="fc"><i>29</i>&nbsp;        mailMessage.setTo(emailTo)</b>
+<b class="fc"><i>30</i>&nbsp;        mailMessage.setSubject(subject)</b>
+<b class="fc"><i>31</i>&nbsp;        mailMessage.setText(message)</b>
+<i>32</i>&nbsp;
+<b class="fc"><i>33</i>&nbsp;        mailSender.send(mailMessage)</b>
+<b class="fc"><i>34</i>&nbsp;    }</b>
+<i>35</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-03-04 11:29</div>
+</div>
+</body>
+</html>
