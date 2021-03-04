@@ -4,6 +4,7 @@ import com.discounts.nearby.model.Good
 import com.discounts.nearby.model.SupermarketCode
 import com.discounts.nearby.model.category.GoodCategory
 import com.discounts.nearby.service.supermarket.category.manager.SupermarketCategoryManager
+import com.discounts.nearby.service.supermarket.parser.provider.JsoupHtmlDocumentDataProvider
 import com.discounts.nearby.service.supermarket.parser.provider.SupermarketSiteDataProvider
 import org.jsoup.nodes.Element
 import org.springframework.beans.factory.annotation.Autowired
@@ -15,8 +16,9 @@ import java.math.BigDecimal
  */
 @Service("okeySiteDataParser")
 class OkeySiteDataProvider @Autowired constructor(
+    documentDataProvider: JsoupHtmlDocumentDataProvider,
     goodCategoryManager: SupermarketCategoryManager
-) : AbstractSupermarketSiteDataProviderImpl(goodCategoryManager), SupermarketSiteDataProvider {
+) : AbstractSupermarketSiteDataProviderImpl(documentDataProvider, goodCategoryManager), SupermarketSiteDataProvider {
     override val supermarketCode = SupermarketCode.OKEY
 
     override val productClass = PRODUCT_CLASS
@@ -25,17 +27,21 @@ class OkeySiteDataProvider @Autowired constructor(
 
     override val isPaginationSupported = true
 
-    override fun getConnectionUrlByCategory(localizedCategory: String,
-                                            sortedByDiscount: Boolean,
-                                            page: Int): String {
+    override fun getConnectionUrlByCategory(
+        localizedCategory: String,
+        sortedByDiscount: Boolean,
+        page: Int
+    ): String {
         val beginIndex = page * ELEMENTS_PER_PAGE
         return "$CONNECTION_URL/$localizedCategory" +
             "#facet:&productBeginIndex:$beginIndex&pageSize=72&orderBy:&pageView:grid&minPrice:&maxPrice:&pageSize:72&"
     }
 
-    override fun getConnectionUrlByGoodName(goodName: String,
-                                            sortedByDiscount: Boolean,
-                                            page: Int): String {
+    override fun getConnectionUrlByGoodName(
+        goodName: String,
+        sortedByDiscount: Boolean,
+        page: Int
+    ): String {
         val beginIndex = page * ELEMENTS_PER_PAGE
         return "$CONNECTION_URL/webapp/wcs/stores/servlet/SearchDisplay?categoryId=&storeId=10653&catalogId=12052" +
             "&langId=-20&sType=SimpleSearch&resultCatEntryType=2&showResultsPage=true" +

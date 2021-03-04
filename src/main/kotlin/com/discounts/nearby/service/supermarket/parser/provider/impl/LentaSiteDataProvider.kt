@@ -4,6 +4,7 @@ import com.discounts.nearby.model.Good
 import com.discounts.nearby.model.SupermarketCode
 import com.discounts.nearby.model.category.GoodCategory
 import com.discounts.nearby.service.supermarket.category.manager.SupermarketCategoryManager
+import com.discounts.nearby.service.supermarket.parser.provider.JsoupHtmlDocumentDataProvider
 import com.discounts.nearby.service.supermarket.parser.provider.SupermarketSiteDataProvider
 import org.jsoup.nodes.Element
 import org.springframework.beans.factory.annotation.Autowired
@@ -15,24 +16,28 @@ import java.math.BigDecimal
  */
 @Service("lentaSiteDataParser")
 class LentaSiteDataProvider @Autowired constructor(
+    documentDataProvider: JsoupHtmlDocumentDataProvider,
     goodCategoryManager: SupermarketCategoryManager
-) : AbstractSupermarketSiteDataProviderImpl(goodCategoryManager), SupermarketSiteDataProvider {
+) : AbstractSupermarketSiteDataProviderImpl(documentDataProvider, goodCategoryManager), SupermarketSiteDataProvider {
     override val supermarketCode = SupermarketCode.LENTA
 
     override val productClass = PRODUCT_CLASS
 
     override val productContainer = PRODUCT_CONTAINER
 
-    override val isPaginationSupported = true
+    override val isPaginationSupported = false
 
-    override fun getConnectionUrlByCategory(localizedCategory: String,
-                                            sortedByDiscount: Boolean,
-                                            page: Int) =
-        "$CATALOG_URL/$localizedCategory/${if (!sortedByDiscount) "?sorting=ByCardPriceAsc" else ""}"
+    override fun getConnectionUrlByCategory(
+        localizedCategory: String,
+        sortedByDiscount: Boolean,
+        page: Int
+    ) = "$CATALOG_URL/$localizedCategory/${if (!sortedByDiscount) "?sorting=ByCardPriceAsc" else ""}"
 
-    override fun getConnectionUrlByGoodName(goodName: String,
-                                            sortedByDiscount: Boolean,
-                                            page: Int) = "$SEARCH_URL${goodName.replace(" ", "%20")}"
+    override fun getConnectionUrlByGoodName(
+        goodName: String,
+        sortedByDiscount: Boolean,
+        page: Int
+    ) = "$SEARCH_URL${goodName.replace(" ", "%20")}"
 
     override fun parseProduct(goodCategory: GoodCategory, productElement: Element): Good {
         val pathToImage = productElement
