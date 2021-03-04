@@ -8,6 +8,9 @@ spring:
   application:
     name: discounts-nearby
 
+  main:
+    allow-bean-definition-overriding: true
+
   mail:
     host: smtp.yandex.ru
     username: ${mailUser}

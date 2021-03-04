@@ -1,0 +1,25 @@
+spring:
+    main:
+        allow-bean-definition-overriding: true
+
+    mail:
+        host: smtp.yandex.ru
+        username: user
+        password: password
+        port: 465
+        protocol: smtps
+
+security:
+    oauth2:
+        client:
+            clientId: clientId
+            clientSecret: secret
+            accessTokenUri: https://www.googleapis.com/oauth2/v4/token
+            userAuthorizationUri: https://accounts.google.com/o/oauth2/v2/auth
+            clientAuthenticationScheme: form
+            scope: openid,email,profile
+        resource:
+            userInfoUri: https://www.googleapis.com/oauth2/v3/userinfo
+            preferTokenInfo: true
+
+
